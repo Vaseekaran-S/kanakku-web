@@ -4,9 +4,11 @@ import Footer from './footer'
 
 function Layout({ children }) {
   return (
-    <div className='container-lg'>
+    <div className='container mx-auto'>
       <Header />
-      {children}
+      <div className='px-3'>
+        {children}
+      </div>
       <Footer />
     </div>
   )

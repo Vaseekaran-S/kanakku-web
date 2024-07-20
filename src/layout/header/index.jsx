@@ -1,13 +1,14 @@
+import PrimaryBtn from "../../components/buttons/primary"
 
 function Header() {
   return (
-    <div className="border-b-[1px] w-full py-5 px-2">
-      <div className="flex justify-between">
+    <div className="border-b-[1px] w-full py-4 px-2">
+      <div className="flex justify-between items-center">
         <a href="/">
-          <img src="/logo/logo.png" alt="Kanakku Logo" className="max-w-[150px]" />
+          <img src="/images/logo/logo.png" alt="Kanakku Logo" className="max-w-[150px]" />
         </a>
         <div>
-          <a href="/" className="">+ Create </a>
+          <PrimaryBtn text="Login" link="/login"/>
         </div>
       </div>
     </div>
