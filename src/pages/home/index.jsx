@@ -1,5 +1,5 @@
 import React from 'react'
-import Welcome from '../../components/sections/welcome'
+import Welcome from 'components/sections/welcome'
 
 function Home() {
   return (

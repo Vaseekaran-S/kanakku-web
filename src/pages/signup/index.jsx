@@ -2,21 +2,21 @@
 import React from 'react'
 import RegistrationForm from 'components/sections/registrationForm'
 
-import inputs from 'data/inputs/login'
+import inputs from 'data/inputs/signup'
 
-function Login() {
+function SignUp() {
 
     const onSubmit = () => {
         console.log("Hee");
     }
 
     const renderingData = {
-        topBoxTitle: "Welcome Back!",
-        buttonText: "Login",
+        topBoxTitle: "SignUp Today!",
+        buttonText: "SignUp",
         bottomBox: {
-            title: "New to Kanakku?",
-            text: "SignUp",
-            link: "/signup"
+            title: "Already have an account?",
+            text: "Login",
+            link: "/login"
         },
         inputs,
         onSubmit
@@ -24,9 +24,9 @@ function Login() {
 
     return (
         <div className="min-h-[90vh] w-full flex-center">
-            <RegistrationForm type="login" renderingData={renderingData}/>
+            <RegistrationForm renderingData={renderingData}/>
         </div>
     )
 }
 
-export default Login
+export default SignUp

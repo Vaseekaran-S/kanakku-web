@@ -1,0 +1,31 @@
+[
+    {
+        "name": "name",
+        "type": "text",
+        "id": "name",
+        "placeholder": "Enter Name!",
+        "errorMsg": "Name is required!"
+    },
+    {
+        "name": "email",
+        "type": "text",
+        "id": "email",
+        "placeholder": "Enter Email!",
+        "errorMsg": "Email is required!"
+    },
+    {
+        "name": "mobile",
+        "type": "number",
+        "id": "mobile",
+        "placeholder": "Enter Number!",
+        "errorMsg": "Mobile is required!"
+    },
+    {
+        "name": "password",
+        "type": "password",
+        "id": "password",
+        "placeholder": "Enter Password!",
+        "errorMsg": "Password is required!",
+        "autoComplete": "on"
+    }
+]

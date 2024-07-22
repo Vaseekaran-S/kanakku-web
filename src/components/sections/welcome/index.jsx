@@ -1,10 +1,10 @@
 import React from 'react'
-import GradientText from '../../animations/texts/gradient'
+import GradientText from 'components/animations/texts/gradient'
 
 function Welcome() {
     return (
         <div className='min-h-[90vh] w-full flex-center'>
-            <div className='flex flex-col items-center'>
+            <div className='flex flex-col items-center text-center'>
                 <h2 className='text-[30px] md:text-[45px] font-bold text-green-600'>
                     <GradientText>Welcome to Kanakku!</GradientText>
                 </h2>

@@ -1,0 +1,17 @@
+[
+    {
+        "name": "email",
+        "type": "text",
+        "id": "email",
+        "placeholder": "Enter Email!",
+        "errorMsg": "Email is required!"
+    },
+    {
+        "name": "password",
+        "type": "password",
+        "id": "password",
+        "placeholder": "Enter Password!",
+        "errorMsg": "Password is required!",
+        "autoComplete": "on"
+    }
+]
