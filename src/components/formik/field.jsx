@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function FormikField({ name, errorMsg, type, ...props }) {
   
-  const isPassword = type == "password";
+  const isPassword = type === "password";
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   return (

@@ -8,7 +8,7 @@ function Header() {
           <img src="/images/logo/logo.png" alt="Kanakku Logo" className="max-w-[150px]" />
         </a>
         <div>
-          <PrimaryBtn text="Login" link="/login"/>
+          <PrimaryBtn text="Login" link="/login" ok="ok"/>
         </div>
       </div>
     </div>

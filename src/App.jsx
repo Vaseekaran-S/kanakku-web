@@ -4,6 +4,8 @@ import Home from "pages/home";
 import Layout from "./layout";
 import Login from "pages/login";
 import SignUp from "pages/signup";
+import ForgotPassword from "pages/forgotPass";
+import PageNotFound from "pages/notFound";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </Layout>

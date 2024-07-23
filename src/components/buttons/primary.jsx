@@ -1,6 +1,6 @@
 import React from 'react'
 
-const initialStyle = 'border px-3 py-1 rounded bg-green-600 text-white font-medium hover:bg-green-700'
+const initialStyle = 'border px-3 py-2 rounded bg-green-600 text-white font-medium hover:bg-green-700'
 function PrimaryBtn({ text, tailwindCss, link, ...others }) {
   const className = `${initialStyle} ${tailwindCss}`
   return (
