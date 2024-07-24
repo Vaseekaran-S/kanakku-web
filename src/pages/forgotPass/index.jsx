@@ -1,7 +1,7 @@
+import React from 'react'
 import PrimaryBtn from 'components/buttons/primary'
 import PrimaryInput from 'components/inputs/primary'
 import PrimaryLink from 'components/links/primary'
-import React from 'react'
 
 function ForgotPassword() {
   return (
@@ -13,7 +13,7 @@ function ForgotPassword() {
         <div className="rounded p-10 border bg-gray-100">
           <h3 className='font-bold text-xl text-center mb-3'>Forgot your password?</h3>
           <p className='max-w-[400px] mb-5'>No problem! Enter your email address below, and we'll send you a link to reset your password.</p>
-          <PrimaryInput placeholder="Enter Email Id!" type="email" />
+          <PrimaryInput placeholder="Enter Email ID" type="email" />
           <PrimaryBtn text="Continue" tailwindCss="mt-4 w-full" />
           <p className='text-center mt-5'>Don't have a account? <PrimaryLink to="/signup">SignUp</PrimaryLink> </p>
         </div>
