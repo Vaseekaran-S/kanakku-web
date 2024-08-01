@@ -1,7 +1,7 @@
 [
     {
         "name": "email",
-        "type": "text",
+        "type": "email",
         "id": "email",
         "placeholder": "Enter Email ID",
         "errorMsg": "Email is required!"

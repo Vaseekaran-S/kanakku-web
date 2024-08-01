@@ -6,8 +6,8 @@ import inputs from 'data/inputs/login'
 
 function Login() {
 
-    const onSubmit = () => {
-        console.log("Hee");
+    const onSubmit = (values) => {
+        console.log(values);
     }
 
     const renderingData = {
