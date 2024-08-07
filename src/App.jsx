@@ -7,12 +7,8 @@ import SignUp from "pages/registration/signup";
 import ForgotPassword from "pages/registration/forgot-password";
 import PageNotFound from "pages/notFound";
 import ResetPassword from "pages/registration/reset-password";
-import { useEffect } from "react";
 
 function App() {
-
-  useEffect()
-
   return (
     <Layout>
       <BrowserRouter>
