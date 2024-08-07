@@ -2,13 +2,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "pages/home";
 import Layout from "./layout";
-import Login from "pages/login";
-import SignUp from "pages/signup";
-import ForgotPassword from "pages/forgotPass";
+import Login from "pages/registration/login";
+import SignUp from "pages/registration/signup";
+import ForgotPassword from "pages/registration/forgot-password";
 import PageNotFound from "pages/notFound";
-import ResetPassword from "pages/resetPass";
+import ResetPassword from "pages/registration/reset-password";
+import { useEffect } from "react";
 
 function App() {
+
+  useEffect()
+
   return (
     <Layout>
       <BrowserRouter>

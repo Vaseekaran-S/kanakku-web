@@ -16,12 +16,17 @@ function RegistrationForm({ renderingData }) {
 
     const initialValues = Object.fromEntries(inputs.map(input => [input?.name, ""]))
     const validationSchema = YUP.object(
-        Object.fromEntries(inputs.map(input => [input?.name, YUP.string().required(input?.errorMsg)]))
+        Object.fromEntries(inputs.map(input => {
+            const validation = YUP.string().required(input?.errorMsg);
+            if(input?.name === 'email') return [input?.name, validation.email('Invalid Email format')]
+            if(input?.name === 'mobile') return [input?.name, validation.matches(/^\d{10}$/, 'Number must be 10 digits')]
+            return [input?.name, validation]
+        }))
     );
 
     return (
         <div className='py-10'>
-            <div className="card py-9 px-8 bg-gray-100 border text-center shadow-sm hover:shadow-lg border-t-[7px] border-t-[green] rounded lg:min-w-[350px]">
+            <div className="card py-9 px-8 bg-gray-100 border text-center shadow-sm hover:shadow-lg border-t-[7px] border-t-[green] rounded sm:min-w-[350px]">
                 <h2 className='text-xl font-bold mb-5'>{topBoxTitle}</h2>
                 <div className='text-start mb-5'>
                     <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
