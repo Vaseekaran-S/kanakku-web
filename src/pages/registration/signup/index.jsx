@@ -1,29 +1,32 @@
 
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import RegistrationForm from 'components/sections/registrationForm'
 
 import inputs from 'data/inputs/signup'
 import { userSignUp } from 'api/registration'
 import Alert from 'components/alerts'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setAuthentication } from 'redux-store/user/userSlice'
 
 function SignUp() {
-    const navigator = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [popup, setPopup] = useState({ isVisible: false, message: '', type: '' });
 
-    const onSubmit = useCallback(async (data) => {
+    const onSubmit = async (data) => {
         const res = await userSignUp(data);
-        console.log(res);
-        
+
         setPopup({ isVisible: true, message: res.message, type: res.type });
         if(res?.type === 'success'){
-            localStorage.setItem("kanakku-user-token", res?.token)
-            return navigator('/');
+            localStorage.setItem("kanakku-user-token", res?.token);
+            dispatch(setAuthentication(true));
+            return navigate('/');
         }
         setTimeout(() => {
             setPopup(prev => ({ ...prev, isVisible: false }));
         }, 5000);
-    }, []);
+    };
 
     const renderingData = {
         topBoxTitle: "SignUp Today!",

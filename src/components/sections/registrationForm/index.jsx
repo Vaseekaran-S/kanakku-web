@@ -13,16 +13,23 @@ function RegistrationForm({ renderingData }) {
 
     // Rendering Data
     const { inputs, topBoxTitle, buttonText, bottomBox, onSubmit } = renderingData;
+    const isLogin = buttonText === "Login";
 
-    const initialValues = Object.fromEntries(inputs.map(input => [input?.name, ""]))
-    const validationSchema = YUP.object(
-        Object.fromEntries(inputs.map(input => {
-            const validation = YUP.string().required(input?.errorMsg);
-            if(input?.name === 'email') return [input?.name, validation.email('Invalid Email format')]
-            if(input?.name === 'mobile') return [input?.name, validation.matches(/^\d{10}$/, 'Number must be 10 digits')]
-            return [input?.name, validation]
-        }))
-    );
+    const initialValues = Object.fromEntries(inputs.map(input => [input?.name, ""]));
+    const validationEntries = isLogin ? {} : {
+        name: YUP.string().required("Name is required!").min(4, "Name must be 4 characters long"),
+        mobile: YUP.string().required("Mobile Number is required!").matches(/^\d{10}$/, 'Number must be 10 digits')
+    }
+    const validationSchema = YUP.object({
+        ...validationEntries,
+        email: YUP.string().required("Email is required!").email('Invalid Email format'),
+        password: YUP.string().required("Password is required!")
+            .min(6, 'Password must be 6 characters long')
+            .matches(/[0-9]/, 'Password requires a number!')
+            .matches(/[A-Z]/, 'Password requires an uppercase letter!')
+            .matches(/[a-z]/, 'Password requires a lowercase letter!')
+            .matches(/[^\w]/, 'Password requires a symbol!')
+    });
 
     return (
         <div className='py-10'>
@@ -38,7 +45,7 @@ function RegistrationForm({ renderingData }) {
                         </Form>
                     </Formik>
                 </div>
-                {buttonText === "Login" && <Link to="/forgot-password" className='font-medium underline'>Forgot Password</Link>}
+                {isLogin && <Link to="/forgot-password" className='font-medium underline'>Forgot Password</Link>}
             </div>
             <div className="text-center bg-gray-100 font-medium border shadow-sm hover:shadow-lg p-5 mt-5 rounded border-b-[5px] border-b-[green]">
                 <h4>{bottomBox?.title} <PrimaryLink to={bottomBox?.link}>{bottomBox?.text}</PrimaryLink></h4>
