@@ -12,6 +12,7 @@ import ResetPassword from "pages/registration/reset-password";
 
 import { verifyToken } from "api/registration";
 import { setAuthentication } from "redux-store/user/userSlice";
+import EmailVerification from "pages/registration/verify-email";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +35,6 @@ function App() {
             <>
               <Route path="/" element={<Home />} />
               <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="*" element={<PageNotFound />} />
             </> :
             <>
               <Route path="/" element={<Home />} />
@@ -42,9 +42,10 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="*" element={<PageNotFound />} />
             </>
           }
+          <Route path="/email-verification/:token" element={<EmailVerification />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </Layout>
