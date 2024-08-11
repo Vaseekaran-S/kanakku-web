@@ -1,7 +1,7 @@
 
 import axios from "../axios"
 
-// POST : SignUp Request
+// POST: SignUp Request
 export const userSignUp = async (data) => {
     try {
         const response = await axios.post("/v1/auth/signup", {
@@ -18,7 +18,7 @@ export const userSignUp = async (data) => {
 }
 
 
-// POST : Login Request
+// POST: Login Request
 export const userLogin = async (data) => {
     try {
         const response = await axios.post("/v1/auth/login", {
@@ -33,12 +33,27 @@ export const userLogin = async (data) => {
 }
 
 
-// POST : Verify Token
+// GET: Verify Token
 export const verifyToken = async () => {
     try{
         const token = localStorage.getItem("kanakku-user-token");
         if(!token) return false;
         const response = await axios.get("/v1/auth/token", { headers: { Authorization: token } })
+        console.log(response);
+        
+        return response?.data?.isTokenValid;
+    }catch(err){
+        console.log("Error: ", err?.message);
+        return false;
+    }
+}
+
+
+// POST: Verify User Email Address
+export const verifyEmailToken = async (token) => {
+    try{
+        if(!token) return false;
+        const response = await axios.post("/v1/auth/verify-email-token", { token })
         console.log(response);
         
         return response?.data?.isTokenValid;

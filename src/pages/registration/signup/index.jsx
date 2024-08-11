@@ -5,24 +5,20 @@ import RegistrationForm from 'components/sections/registrationForm'
 import inputs from 'data/inputs/signup'
 import { userSignUp } from 'api/registration'
 import Alert from 'components/alerts'
-import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setAuthentication } from 'redux-store/user/userSlice'
+import { setLoaderStatus } from 'redux-store/popups/popupSlice'
 
 function SignUp() {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [isEmailVerified, setIsEmailVerified] = useState('');
     const [popup, setPopup] = useState({ isVisible: false, message: '', type: '' });
 
     const onSubmit = async (data) => {
+        dispatch(setLoaderStatus(true))
         const res = await userSignUp(data);
-
-        setPopup({ isVisible: true, message: res.message, type: res.type });
-        if(res?.type === 'success'){
-            localStorage.setItem("kanakku-user-token", res?.token);
-            dispatch(setAuthentication(true));
-            return navigate('/');
-        }
+        if(res?.message === 'Email is not verified!') setIsEmailVerified(false)
+        setPopup({ isVisible: true, message: res?.message, type: res?.type });
+        dispatch(setLoaderStatus(false))        
         setTimeout(() => {
             setPopup(prev => ({ ...prev, isVisible: false }));
         }, 5000);
@@ -40,12 +36,14 @@ function SignUp() {
         onSubmit
     }
 
+    const emailNotVerified = "";
+
     const { isVisible, message, type } = popup;
 
     return (
         <div className="min-h-[90vh] w-full flex-center">
             { isVisible && <Alert message={message} type={type}/> }
-            <RegistrationForm renderingData={renderingData}/>
+            <RegistrationForm renderingData={renderingData} isEmailVerified={isEmailVerified}/>
         </div>
     )
 }
