@@ -5,10 +5,10 @@ import { Link, useParams } from 'react-router-dom'
 function EmailVerification() {
     const { token } = useParams();
     
-    const verifyToken = async() => {
-        const response = await verifyEmailToken(token)
-    }
     useEffect(()=>{
+        const verifyToken = async() => {
+            await verifyEmailToken(token)
+        }
         verifyToken()
     }, [token])
 

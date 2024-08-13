@@ -13,6 +13,10 @@ import ResetPassword from "pages/registration/reset-password";
 import { verifyToken } from "api/registration";
 import { setAuthentication } from "redux-store/user/userSlice";
 import EmailVerification from "pages/registration/verify-email";
+import Transactions from "pages/transactions";
+import Events from "pages/events";
+import Groups from "pages/groups";
+import Profile from "pages/profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,12 +32,16 @@ function App() {
   }, [])
 
   return (
-    <Layout>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Layout>
         <Routes>
           {isAuthenticated ?
             <>
               <Route path="/" element={<Home />} />
+              <Route path="/transactions" element={<Transactions />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/groups" element={<Groups />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/reset-password" element={<ResetPassword />} />
             </> :
             <>
@@ -47,8 +55,8 @@ function App() {
           <Route path="/email-verification/:token" element={<EmailVerification />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-      </BrowserRouter>
-    </Layout>
+      </Layout>
+    </BrowserRouter>
   );
 }
 
