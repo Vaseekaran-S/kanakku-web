@@ -38,10 +38,14 @@ export const verifyToken = async () => {
     try{
         const token = localStorage.getItem("kanakku-user-token");
         if(!token) return false;
-        const response = await axios.get("/v1/auth/token", { headers: { Authorization: token } })
-        console.log(response);
+        const { data } = await axios.get("/v1/auth/token", { headers: { Authorization: token } })
+        console.log(data);
+
+        if(data?.isTokenValid) {
+            sessionStorage.setItem("userMail", data?.userMail)
+        }
         
-        return response?.data?.isTokenValid;
+        return data?.isTokenValid;
     }catch(err){
         console.log("Error: ", err?.message);
         return false;

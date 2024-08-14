@@ -11,12 +11,14 @@ import PageNotFound from "pages/notFound";
 import ResetPassword from "pages/registration/reset-password";
 
 import { verifyToken } from "api/registration";
-import { setAuthentication } from "redux-store/user/userSlice";
+import { setAuthentication, setUserData } from "redux-store/user/userSlice";
 import EmailVerification from "pages/registration/verify-email";
 import Transactions from "pages/transactions";
 import Events from "pages/events";
 import Groups from "pages/groups";
 import Profile from "pages/profile";
+import Accounts from "pages/accounts";
+import { getUser } from "api/user";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +26,10 @@ function App() {
 
   const checkAuthentication = async () => {
     const isTokenValid = await verifyToken();
-    dispatch(setAuthentication(isTokenValid))
+    dispatch(setAuthentication(isTokenValid));
+
+    const userData = await getUser();
+    dispatch(setUserData(userData))
   }
 
   useEffect(() => {
@@ -38,6 +43,7 @@ function App() {
           {isAuthenticated ?
             <>
               <Route path="/" element={<Home />} />
+              <Route path="/accounts" element={<Accounts />} />
               <Route path="/transactions" element={<Transactions />} />
               <Route path="/events" element={<Events />} />
               <Route path="/groups" element={<Groups />} />

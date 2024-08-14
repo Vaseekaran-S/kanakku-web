@@ -6,9 +6,14 @@ import { GrTransaction } from "react-icons/gr";
 
 import { Link } from "react-router-dom";
 import Avatar from "react-avatar";
+import store from "redux-store/store";
 
 function Header() {
   const isAuthenticated = useSelector(store => store.user.isAuthenticated)
+  const userData = useSelector(store => store.user.userData)
+
+  console.log(userData);
+  
   return (
     <div className="border-b-[1px] w-full py-4 px-2">
       <div className="flex justify-between items-center">
@@ -20,7 +25,7 @@ function Header() {
             isAuthenticated ?
               <div className="flex items-center gap-4">
                 <Link to="/transactions">
-                  <GrTransaction className="text-xl hover:text-blue-800 rotate-90" title="Transactions"/>
+                  <GrTransaction className="text-xl hover:text-blue-800" title="Transactions"/>
                 </Link>
                 <Link to="/events">
                   <MdEventNote className="text-xl hover:text-blue-800" title="Events"/>
