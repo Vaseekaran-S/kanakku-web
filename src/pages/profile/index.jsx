@@ -48,8 +48,8 @@ function Profile() {
                 title="Profile"
                 className="max-h-[40px] max-w-[40px] lg:max-h-[90px] lg:max-w-[90px] lg:text-2xl rounded-full font-bold"
               />
-                <p className='font-bold mb-0 mt-2'>{name}</p>
-                <p className='text-[11px]'>{email}</p>
+              <p className='font-bold mb-0 mt-2'>{name}</p>
+              <p className='text-[11px]'>{email}</p>
             </div>
             <div className='flex-center flex-col mt-3'>
               <div>
@@ -63,11 +63,9 @@ function Profile() {
           </Card>
         </div>
         <div className="col-span-12 lg:col-span-9">
-          <Card customCss="hover:shadow-md px-8 py-5">
+          <Card customCss="hover:shadow-md px-8 py-2 divide-y">
             <ProfileTable data={profileTableData.accounts} />
-            <hr />
             <ProfileTable data={profileTableData.events} />
-            <hr />
             <ProfileTable data={profileTableData.groups} />
           </Card>
         </div>

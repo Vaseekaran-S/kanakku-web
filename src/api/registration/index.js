@@ -39,7 +39,6 @@ export const verifyToken = async () => {
         const token = localStorage.getItem("kanakku-user-token");
         if(!token) return false;
         const { data } = await axios.get("/v1/auth/token", { headers: { Authorization: token } })
-        console.log(data);
 
         if(data?.isTokenValid) {
             sessionStorage.setItem("userMail", data?.userMail)

@@ -13,6 +13,7 @@ const userSlice = createSlice({
             state.isAuthenticated = action.payload
         },
         setUserData: (state, action) => {
+            state.isAuthenticated = action.payload.isAuthenticated || state.isAuthenticated;
             state.user = action.payload.email || state.user;
             state.userData = { ...state.userData, ...action.payload };
         }

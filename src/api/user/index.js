@@ -7,8 +7,6 @@ export const getUser = async() => {
         const email = sessionStorage.getItem("userMail")
         if(!email) return {};
         const { data } = await axios.get(`/v1/users/${email}`)
-        console.log(data);
-        
         return data;
     }catch(err){
         console.log("Error: ", err?.message);

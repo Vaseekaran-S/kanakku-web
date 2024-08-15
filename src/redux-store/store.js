@@ -1,12 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./user/userSlice"
-import popupReducer from "./popups/popupSlice"
+import rootReducer from "./reducer";
 
 const store = configureStore({
-    reducer: {
-        user: userReducer,
-        popup: popupReducer
-    }
+    reducer: rootReducer
 })
 
 export default store
