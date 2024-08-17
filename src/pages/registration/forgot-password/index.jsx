@@ -14,7 +14,7 @@ function ForgotPassword() {
           <h3 className='font-bold text-xl text-center mb-3'>Forgot your password?</h3>
           <p className='max-w-[400px] mb-5'>No problem! Enter your email address below, and we'll send you a link to reset your password.</p>
           <PrimaryInput placeholder="Enter Email ID" type="email" />
-          <PrimaryBtn text="Continue" tailwindCss="mt-4 w-full" />
+          <PrimaryBtn label="Continue" customCss="mt-4 w-full" />
           <p className='text-center mt-5'>Don't have a account? <PrimaryLink to="/signup">SignUp</PrimaryLink> </p>
         </div>
       </div>

@@ -14,7 +14,7 @@ function ResetPassword() {
           <p className='max-w-[400px] mb-5'>Your new password must be different to previous password.</p>
           <PrimaryInput placeholder="New Password" type="password" name="password" className="mb-4"/>
           <PrimaryInput placeholder="Confirm Password" type="password" name="confirm-password"/>
-          <PrimaryBtn text="Reset Password" tailwindCss="mt-4 w-full" />
+          <PrimaryBtn label="Reset Password" customCss="mt-4 w-full" />
         </div>
       </div>
     </div>

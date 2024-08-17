@@ -40,10 +40,11 @@ export const verifyToken = async () => {
         if(!token) return false;
         const { data } = await axios.get("/v1/auth/token", { headers: { Authorization: token } })
 
+        console.log(data);
+        
         if(data?.isTokenValid) {
             sessionStorage.setItem("userMail", data?.userMail)
         }
-        
         return data?.isTokenValid;
     }catch(err){
         console.log("Error: ", err?.message);

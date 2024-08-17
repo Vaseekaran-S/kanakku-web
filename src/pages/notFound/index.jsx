@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function PageNotFound() {
     return (
-        <div className='min-h-[80vh] flex-center'>
+        <div className='min-h-[90vh] flex-center'>
             <div className='text-center'>
                 <img src="/images/vectors/404.png" alt="Page Not Found" className='max-h-[350px]'/>
                 <p className='text-lg'>This page is Not Found</p>

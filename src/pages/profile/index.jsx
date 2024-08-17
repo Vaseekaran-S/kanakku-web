@@ -1,13 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Card from 'components/cards';
 import Avatar from "react-avatar";
-import { MdEventNote, MdAccountBalanceWallet, MdAccountBalance } from "react-icons/md";
-import { FaPhoneAlt } from "react-icons/fa";
+import { MdEventNote, MdAccountBalanceWallet, MdAccountBalance, MdOutlineLogout } from "react-icons/md";
+import { FaPhoneAlt, FaUserEdit } from "react-icons/fa";
 import { HiUserGroup } from 'react-icons/hi2';
 
-import { FaCirclePlus } from "react-icons/fa6";
 import ProfileTable from 'components/sections/profile';
+import PrimaryBtn from 'components/buttons/primary';
+import { useNavigate } from 'react-router-dom';
 
 const profileTableData = {
   accounts: {
@@ -28,6 +29,8 @@ const profileTableData = {
 }
 
 function Profile() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { name, email, mobile } = useSelector(state => state.user.userData);
 
   const profileDetails = [
@@ -36,6 +39,12 @@ function Profile() {
     { icon: <MdEventNote />, text: `Events - ${0}` },
     { icon: <HiUserGroup />, text: `Groups - ${0}` },
   ];
+
+  const logoutUser = () => {
+    dispatch({ type: "LOGOUT" })
+    localStorage.removeItem("kanakku-user-token")
+    navigate("/");
+  }
 
   return (
     <div className='py-10'>
@@ -59,6 +68,10 @@ function Profile() {
                   </div>
                 ))}
               </div>
+            </div>
+            <div className='flex-center mt-4 gap-2'>
+              <PrimaryBtn link="/profile/edit" customCss='py-1 font-medium bg-blue-700 text-sm hover:bg-blue-900 flex items-center gap-1'><FaUserEdit size={20} /> EDIT</PrimaryBtn>
+              <PrimaryBtn onClick={logoutUser} customCss='py-1 font-medium bg-red-700 text-sm hover:bg-red-900 flex items-center gap-1'><MdOutlineLogout size={20} /> LOGOUT</PrimaryBtn>
             </div>
           </Card>
         </div>

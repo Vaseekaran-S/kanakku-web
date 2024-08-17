@@ -21,6 +21,8 @@ function Header() {
           {
             isAuthenticated ?
               <div className="flex items-center gap-4">
+                <div className="hidden md:flex gap-2">
+
                 <Link to="/transactions">
                   <GrTransaction className="text-xl hover:text-blue-800" title="Transactions"/>
                 </Link>
@@ -30,12 +32,13 @@ function Header() {
                 <Link to="/groups">
                   <HiUserGroup className="text-xl hover:text-blue-800" title="Groups"/>
                 </Link>
+                </div>
                 <Link to="/profile">
                   <Avatar name={userData?.name} title="Profile" className="max-h-[40px] max-w-[40px] rounded-full font-bold text-2xl"/>
                 </Link>
               </div>
               :
-              <PrimaryBtn text="Login" link="/login" ok="ok" />
+              <PrimaryBtn label="Login" link="/login" ok="ok" />
           }
         </div>
       </div>

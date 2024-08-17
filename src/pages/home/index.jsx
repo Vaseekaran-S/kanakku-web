@@ -3,7 +3,7 @@ import Welcome from 'components/sections/welcome'
 
 function Home() {
   return (
-    <div>
+    <div className='min-h-[100vh]'>
       <Welcome />
     </div>
   )

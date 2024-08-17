@@ -41,7 +41,7 @@ function RegistrationForm({ renderingData }) {
                             {inputs.map(input => [
                                 <FormikField {...input} key={input?.id} />
                             ])}
-                            <PrimaryBtn text={buttonText} tailwindCss="w-full py-2" type="submit" />
+                            <PrimaryBtn label={buttonText} customCss="w-full py-2" type="submit" />
                         </Form>
                     </Formik>
                 </div>
