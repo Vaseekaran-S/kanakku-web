@@ -36,8 +36,6 @@ function SignUp() {
         onSubmit
     }
 
-    const emailNotVerified = "";
-
     const { isVisible, message, type } = popup;
 
     return (

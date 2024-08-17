@@ -19,7 +19,7 @@ function ProfileTable({ data: {title, icon, link} }) {
             <h2 className='text-lg font-bold mb-2'>{title}</h2>
             <div className='grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 gap-4'>
                 <div className="col-span-3">
-                    <ProfileTableCard label={`Create`} link={`/${link}/create`} icon={<FaCirclePlus fontSize={35} />} />
+                    <ProfileTableCard label="Create" link={`/${link}/create`} icon={<FaCirclePlus fontSize={35} />} />
                 </div>
                 <div className="col-span-3">
                     <ProfileTableCard label={title} link={`/${link}`} icon={icon} />

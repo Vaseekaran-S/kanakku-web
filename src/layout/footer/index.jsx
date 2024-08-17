@@ -1,5 +1,8 @@
-import { useSelector } from "react-redux"
+import Alert from "components/alerts"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import { setPopupAlert } from "redux-store/popups/popupSlice"
 
 const footerLinks = [
   {
@@ -25,9 +28,23 @@ const footerLinks = [
 ]
 
 function Footer() {
+  const dispatch = useDispatch();
+  const [isAlertOn, setIsAlertOn ] = useState(false);
+  const { alertStatus, alertMessage, alertType } = useSelector(store => store.popup.alert)
   const isAuthenticated = useSelector(store => store.user.isAuthenticated)
+
+  useEffect(()=>{
+    setIsAlertOn(alertStatus)
+    if(alertStatus){
+      setTimeout(()=>{
+        dispatch(setPopupAlert({ alertStatus: false, alertMessage: "", alertType: "" }))
+      }, 5000)
+    }
+  }, [alertStatus]);
+  
   return (
     <div>
+      { isAlertOn && <Alert message={alertMessage} type={alertType}/> }
       <hr />
       <div className="py-6 px-5">
         <div className="max-w-[400px] m-auto">

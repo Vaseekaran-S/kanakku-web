@@ -1,8 +1,8 @@
 import React from 'react'
 
-function PageSection({ children }) {
+function PageSection({ customCss, children }) {
   return (
-    <div className='min-h-[100vh]'>
+    <div className={`min-h-[100vh] ${customCss}`}>
       {children}
     </div>
   )
