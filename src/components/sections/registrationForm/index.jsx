@@ -18,7 +18,8 @@ function RegistrationForm({ renderingData }) {
     const initialValues = Object.fromEntries(inputs.map(input => [input?.name, ""]));
     const validationEntries = isLogin ? {} : {
         name: YUP.string().required("Name is required!").min(4, "Name must be 4 characters long"),
-        mobile: YUP.string().required("Mobile Number is required!").matches(/^\d{10}$/, 'Number must be 10 digits')
+        mobile: YUP.string().required("Mobile Number is required!").matches(/^\d{10}$/, 'Number must be 10 digits'),
+        type: YUP.string().required("Type is required!")
     }
     const validationSchema = YUP.object({
         ...validationEntries,

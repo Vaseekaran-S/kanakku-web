@@ -8,6 +8,7 @@ import { userLogin } from 'api/registration';
 import RegistrationForm from 'components/sections/registrationForm'
 import inputs from 'data/inputs/login'
 import useKanakkuApi from 'hooks/api';
+import PageSection from 'components/sections/page';
 
 function Login() {
     const navigate = useNavigate();
@@ -36,9 +37,9 @@ function Login() {
     }
 
     return (
-        <div className="min-h-[90vh] w-full flex-center">
+        <PageSection customCss="w-full flex-center">
             <RegistrationForm type="login" renderingData={renderingData}/>
-        </div>
+        </PageSection>
     )
 }
 

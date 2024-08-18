@@ -8,7 +8,8 @@ export const userSignUp = async (data) => {
             name: data?.name,
             email: data?.email,
             mobile: data?.mobile,
-            password: data?.password
+            password: data?.password,
+            type: data?.type
         })
         return response?.data;
     } catch (err) {

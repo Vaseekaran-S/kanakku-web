@@ -21,6 +21,17 @@
         "errorMsg": "Mobile is required!"
     },
     {
+        "name": "type",
+        "type": "select",
+        "id": "type",
+        "placeholder": "Select Type",
+        "errorMsg": "Type is required!",
+        "options": [
+            {"value": "personal", "label": "Personal"},
+            {"value": "organization", "label": "Organization"}
+        ]
+    },
+    {
         "name": "password",
         "type": "password",
         "id": "password",

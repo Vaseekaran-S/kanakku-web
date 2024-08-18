@@ -1,27 +1,22 @@
-
 import React, { useState } from 'react'
-import RegistrationForm from 'components/sections/registrationForm'
-
-import inputs from 'data/inputs/signup'
-import { userSignUp } from 'api/registration'
-import Alert from 'components/alerts'
 import { useDispatch } from 'react-redux'
-import { setLoaderStatus } from 'redux-store/popups/popupSlice'
+
+import useKanakkuApi from 'hooks/api';
+import { userSignUp } from 'api/registration'
+import RegistrationForm from 'components/sections/registrationForm'
+import inputs from 'data/inputs/signup'
+import PageSection from 'components/sections/page';
+import Card from 'components/cards';
 
 function SignUp() {
-    const dispatch = useDispatch();
-    const [isEmailVerified, setIsEmailVerified] = useState('');
-    const [popup, setPopup] = useState({ isVisible: false, message: '', type: '' });
+    const kanakkuApiCall = useKanakkuApi();
+    const [isEmailSend, setIsEmailSend] = useState(false);
 
     const onSubmit = async (data) => {
-        dispatch(setLoaderStatus(true))
-        const res = await userSignUp(data);
-        if(res?.message === 'Email is not verified!') setIsEmailVerified(false)
-        setPopup({ isVisible: true, message: res?.message, type: res?.type });
-        dispatch(setLoaderStatus(false))        
-        setTimeout(() => {
-            setPopup(prev => ({ ...prev, isVisible: false }));
-        }, 5000);
+        const response = await kanakkuApiCall(userSignUp, data)
+        if (response?.type === "success" || response?.mailSend) {
+            setIsEmailSend(true)
+        }
     };
 
     const renderingData = {
@@ -36,13 +31,16 @@ function SignUp() {
         onSubmit
     }
 
-    const { isVisible, message, type } = popup;
-
     return (
-        <div className="min-h-[90vh] w-full flex-center">
-            { isVisible && <Alert message={message} type={type}/> }
-            <RegistrationForm renderingData={renderingData} isEmailVerified={isEmailVerified}/>
-        </div>
+        <PageSection customCss="w-full flex-center">
+            {!isEmailSend ?
+                <RegistrationForm renderingData={renderingData} /> :
+                <Card customCss="md:max-w-[500px] px-10 py-10 text-center">
+                    <img src="/images/gif/email-send.gif" alt="Email Send!" className='max-h-[150px] m-auto' />
+                    <h2 className='font-bold text-lg my-2'>Check your Inbox!</h2>
+                    <p>To start using Kanakku, we need to verify your email. We've already send out the verification link. Please check it and confirm it's really you.</p>
+                </Card>}
+        </PageSection>
     )
 }
 
