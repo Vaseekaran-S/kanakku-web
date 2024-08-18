@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -23,52 +23,55 @@ import Groups from "pages/groups";
 import Profile from "pages/profile";
 import Accounts from "pages/accounts";
 import CreateAccount from "pages/accounts/create";
+import Loader from "components/loader";
 
 function App() {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(store => store.user.isAuthenticated)
+  const isAuthenticated = useSelector((store) => store.user.isAuthenticated);
 
-  const checkAuthentication = async () => {
+  const checkAuthentication = useCallback(async () => {
     const isTokenValid = await verifyToken();
-    if(isTokenValid){
+    if (isTokenValid) {
       const userData = await getUser();
       dispatch(setAuthentication(isTokenValid));
-      dispatch(setUserData(userData))
-    } 
-  }
+      dispatch(setUserData(userData));
+    }
+  }, [dispatch]);
 
   useEffect(() => {
-    checkAuthentication()
-  }, [isAuthenticated])
+    checkAuthentication();
+  }, [isAuthenticated, checkAuthentication]);
 
   return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          {isAuthenticated ?
-            <>
-              <Route path="/" element={<Home />} />
-              <Route path="/accounts" element={<Accounts />} />
-              <Route path="/accounts/create" element={<CreateAccount />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/groups" element={<Groups />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-            </> :
-            <>
-              <Route path="/accounts/create" element={<CreateAccount />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-            </>
-          }
-          <Route path="/email-verification/:token" element={<EmailVerification />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </Layout>
+    <BrowserRouter basename="/">
+      <Suspense fallback={<Loader />}>
+        <Layout>
+          <Routes>
+            {isAuthenticated ? (
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="/accounts" element={<Accounts />} />
+                <Route path="/accounts/create" element={<CreateAccount />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/events" element={<Events />} />
+                <Route path="/groups" element={<Groups />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+              </>
+            ) : (
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+              </>
+            )}
+            <Route path="/email-verification/:token" element={<EmailVerification />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Layout>
+      </Suspense>
     </BrowserRouter>
   );
 }

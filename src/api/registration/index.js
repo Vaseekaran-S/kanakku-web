@@ -66,3 +66,17 @@ export const verifyEmailToken = async (token) => {
         return false;
     }
 }
+
+// POST: Forgot Password APi
+export const forgotPassword = async(email) => {
+    try{
+        if(!email) return false;
+        const { data } = await axios.post("/v1/auth/forgot-password", { email })
+        console.log(data);
+        
+        return data;
+    }catch(err){
+        console.log("Error: ", err?.message);
+        return { message: "Network Error", type: "error" };
+    }
+}
