@@ -58,10 +58,10 @@ export const verifyToken = async () => {
 export const verifyEmailToken = async (token) => {
     try{
         if(!token) return false;
-        const response = await axios.post("/v1/auth/verify-email-token", { token })
-        console.log(response);
+        const { data } = await axios.post("/v1/auth/verify-email-token", { token })
+        console.log(data);
         
-        return response?.data?.isTokenValid;
+        return data;
     }catch(err){
         console.log("Error: ", err?.message);
         return false;
