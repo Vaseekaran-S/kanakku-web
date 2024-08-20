@@ -1,10 +1,8 @@
-
 import axios from "../axios"
 
 // GET: Get a user Data by email
-export const getUser = async() => {
+export const getUser = async(email) => {
     try{
-        const email = sessionStorage.getItem("userMail")
         if(!email) return {};
         const { data } = await axios.get(`/v1/users/${email}`)
         return data;

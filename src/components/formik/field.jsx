@@ -19,7 +19,7 @@ function FormikField({ errorMsg, type, options, ...props }) {
           ])}
         </Field>
         :
-        <Field {...props} type={isPassword && isPasswordVisible ? "text" : type} className={className} />
+        <Field {...props} type={isPassword && isPasswordVisible ? "text" : type} autoComplete="On" className={className} />
       }
       {isPassword && <button type='button' onClick={() => setIsPasswordVisible(!isPasswordVisible)} className='absolute top-[13px] right-[10px]'>{isPasswordVisible ? <FaEye /> : <FaEyeSlash />}</button>}
       <ErrorMessage name={props?.name} component="div" className='text-xs font-medium text-red-600 pl-1' />

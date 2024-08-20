@@ -35,18 +35,11 @@ export const userLogin = async (data) => {
 
 
 // GET: Verify Token
-export const verifyToken = async () => {
+export const verifyToken = async (token) => {
     try{
-        const token = localStorage.getItem("kanakku-user-token");
         if(!token) return false;
         const { data } = await axios.get("/v1/auth/token", { headers: { Authorization: token } })
-
-        console.log(data);
-        
-        if(data?.isTokenValid) {
-            sessionStorage.setItem("userMail", data?.userMail)
-        }
-        return data?.isTokenValid;
+        return data;
     }catch(err){
         console.log("Error: ", err?.message);
         return false;
@@ -71,10 +64,21 @@ export const verifyEmailToken = async (token) => {
 // POST: Forgot Password APi
 export const forgotPassword = async(email) => {
     try{
-        if(!email) return false;
+        if(!email) return { message: "Network Error", type: "error" };
         const { data } = await axios.post("/v1/auth/forgot-password", { email })
-        console.log(data);
-        
+
+        return data;
+    }catch(err){
+        console.log("Error: ", err?.message);
+        return { message: "Network Error", type: "error" };
+    }
+}
+
+// POST: Reset Password APi
+export const resetPassword = async({ token, password }) => {
+    try{
+        if(!token || !password) return { message: "Network Error", type: "error" };
+        const { data } = await axios.post("/v1/auth/reset-password", { token, password })
         return data;
     }catch(err){
         console.log("Error: ", err?.message);

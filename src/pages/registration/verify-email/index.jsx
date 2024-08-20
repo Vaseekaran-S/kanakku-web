@@ -11,16 +11,12 @@ function EmailVerification() {
 
     useEffect(() => {
         const verifyToken = async () => {
-            const response = await verifyEmailToken(token)
-            setIsLoading(false)
-            if (response?.isEmailVerified) {
-                setIsEmailVerified(true)
-            } else {
-                setIsEmailVerified(false)
-            }
+            const response = await verifyEmailToken(token);
+            setIsLoading(false);
+            setIsEmailVerified(response?.isEmailVerified || false);
         }
         setTimeout(() => {
-            verifyToken()
+            verifyToken();
         }, 3000)
     }, [token])
 

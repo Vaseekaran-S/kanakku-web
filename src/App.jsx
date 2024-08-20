@@ -2,7 +2,7 @@ import { useEffect, useCallback, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setAuthentication, setUserData } from "redux-store/user/userSlice";
+import { setAuthentication, setUserData, setUserMail } from "redux-store/user/userSlice";
 
 import { getUser } from "api/user";
 import { verifyToken } from "api/registration";
@@ -30,9 +30,11 @@ function App() {
   const isAuthenticated = useSelector((store) => store.user.isAuthenticated);
 
   const checkAuthentication = useCallback(async () => {
-    const isTokenValid = await verifyToken();
+    const token = localStorage.getItem("kanakku-user-token");
+    const { isTokenValid, userMail } = await verifyToken(token);
     if (isTokenValid) {
-      const userData = await getUser();
+      dispatch(setUserMail(userMail));
+      const userData = await getUser(userMail);
       dispatch(setAuthentication(isTokenValid));
       dispatch(setUserData(userData));
     }
@@ -56,7 +58,6 @@ function App() {
                 <Route path="/events" element={<Events />} />
                 <Route path="/groups" element={<Groups />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
               </>
             ) : (
               <>
@@ -64,9 +65,9 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
               </>
             )}
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/email-verification/:token" element={<EmailVerification />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
