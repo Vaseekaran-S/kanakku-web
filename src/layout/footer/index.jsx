@@ -30,7 +30,7 @@ function Footer() {
   return (
     <div>
       <hr />
-      <div className="py-6 px-5">
+      <div className="py-6 px-5 bg-gray-100">
         <div className="max-w-[400px] m-auto">
           <div className="text-center">
             <img src="/images/logo/logo.png" alt="Kanakku Logo" className="max-w-[150px] m-auto mb-2" />
@@ -44,10 +44,10 @@ function Footer() {
             </div>
           }
         </div>
-      </div>
-      <p className="pb-3 text-center text-sm font-medium">
+      <p className="pt-3 text-center text-sm font-medium">
         Copyright ©2024 All Rights Reserved
       </p>
+      </div>
     </div>
   )
 }
