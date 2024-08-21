@@ -1,3 +1,4 @@
+import PrimaryBtn from "components/buttons/primary";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -26,7 +27,7 @@ const footerLinks = [
 
 function Footer() {
   const isAuthenticated = useSelector(store => store.user.isAuthenticated)
-  
+
   return (
     <div>
       <hr />
@@ -34,19 +35,22 @@ function Footer() {
         <div className="max-w-[400px] m-auto">
           <div className="text-center">
             <img src="/images/logo/logo.png" alt="Kanakku Logo" className="max-w-[150px] m-auto mb-2" />
-            <p className="font-medium">Ready to transform Your Manual Accounting into a Digital Masterpiece!</p>
+            <p className="font-medium">Effortless financial management, empowering your financial future.</p>
           </div>
-          {isAuthenticated &&
-            <div className="text-center flex flex-col md:block md:divide-x md:divide-black mt-4">
-              {footerLinks.map(footerLink => [
-                <Link key={footerLink.link} to={footerLink.link} className="px-2 hover:font-medium">{footerLink.label}</Link>
-              ])}
-            </div>
-          }
+          <div className="py-4 text-center">
+            {isAuthenticated ?
+              <div className="flex flex-col md:block md:divide-x md:divide-black">
+                {footerLinks.map(footerLink => [
+                  <Link key={footerLink.link} to={footerLink.link} className="px-2 hover:font-medium">{footerLink.label}</Link>
+                ])}
+              </div> :
+              <PrimaryBtn label="SignUp Now" link="/signup" customCss="mb-4" />
+            }
+          </div>
         </div>
-      <p className="pt-3 text-center text-sm font-medium">
-        Copyright ©2024 All Rights Reserved
-      </p>
+        <p className="text-center text-sm font-medium">
+          Copyright ©2024 All Rights Reserved
+        </p>
       </div>
     </div>
   )

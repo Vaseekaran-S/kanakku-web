@@ -24,6 +24,7 @@ import Profile from "pages/profile";
 import Accounts from "pages/accounts";
 import CreateAccount from "pages/accounts/create";
 import Loader from "components/loader";
+import Welcome from "pages/registration/welcome";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ function App() {
               </>
             ) : (
               <>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Welcome />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
