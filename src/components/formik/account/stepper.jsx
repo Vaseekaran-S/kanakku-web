@@ -3,6 +3,35 @@ import PrimaryBtn from 'components/buttons/primary';
 import FormikField from '../field'
 import * as Yup from 'yup'
 
+import { FaMoneyBill1, FaMoneyBillTransfer } from "react-icons/fa6";
+import { FaMoneyCheck } from "react-icons/fa";
+import { MdBusinessCenter } from "react-icons/md";
+import { AiFillShop } from "react-icons/ai";
+import { ErrorMessage } from 'formik';
+
+const icons = [
+    {
+        name: "Salary",
+        Icon: FaMoneyCheck
+    },
+    {
+        name: "Money",
+        Icon: FaMoneyBill1
+    },
+    {
+        name: "bill",
+        Icon: FaMoneyBillTransfer
+    },
+    {
+        name: "Business",
+        Icon: MdBusinessCenter
+    },
+    {
+        name: "Shop",
+        Icon: AiFillShop
+    }
+]
+
 export const StepOne = {
     schema: Yup.object().shape({
         name: Yup.string()
@@ -29,21 +58,29 @@ export const StepTwo = {
         <div className="rounded p-10 border bg-gray-100 lg:w-[430px]">
             <h3 className='font-bold text-xl text-center mb-4'>Initial Balance</h3>
             <FormikField placeholder="Enter initial balance" type="number" name="balance" />
-            <PrimaryBtn label="Continue" type="button" onClick={nextStep(validateForm)} customCss="w-full" />
+            <PrimaryBtn label="Continue" type="submit" onClick={nextStep(validateForm)} customCss="w-full" />
         </div>
     )
 }
 
 export const StepThree = {
     schema: Yup.object().shape({
-        type: Yup.string().required('Type is required')
+        icon: Yup.string().required('Please! Select an Account Type')
     }),
-    component: () => (
+    component: ({ setFieldValue, values }) => {
+        return(
         <div className="rounded p-10 border bg-gray-100 lg:w-[450px]">
             <h3 className='font-bold text-xl text-center mb-4'>Account Type</h3>
-            <FormikField placeholder="Enter your account type" type="text" name="type" />
-            <PrimaryBtn label="Submit" type="submit" customCss="w-full" />
+            <div className="grid grid-cols-12 gap-2">
+                { icons.map(({name, Icon}) => [
+                    <div key={name} className={`col-span-3 p-4 rounded border cursor-pointer text-center ${values?.icon === name ? 'bg-green-800 text-white' : 'bg-white'} `} onClick={()=>setFieldValue('icon', name)}>
+                        <Icon className='text-[30px] m-auto'/>
+                        {name}
+                    </div>
+                ])}
+            </div>
+            <ErrorMessage name="icon" component="div" className='text-sm font-medium text-red-600 pl-1 mt-3' />
+            <PrimaryBtn label="Submit" type="submit" customCss="w-full mt-2" />
         </div>
-    )
+    )}
 }
-

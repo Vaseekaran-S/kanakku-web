@@ -1,12 +1,10 @@
 import axios from "../axios"
 
 // POST: Create a account
-export const createAccount = async({ name, userId, balance }) => {
+export const createAccount = async({ name, userId, balance, icon }) => {
     try{
         if(!name || !userId) return { message: "Bad Action", type: "error" };
-        const { data } = await axios.post(`/v1/accounts`, { name, userId, balance })
-        console.log(data);
-        
+        const { data } = await axios.post(`/v1/accounts`, { name, userId, balance, icon })
         return data;
     }catch(err){
         console.log("Error: ", err?.message);

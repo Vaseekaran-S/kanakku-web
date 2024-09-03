@@ -31,9 +31,9 @@ function Accounts() {
         <PrimaryBtn label="Create +" link="/accounts/create" customCss="py-[3px] px-2" />
       </div>
 
-      {isLoading ? (
+      { isLoading ? (
         <div className="grid sm:grid-cols-6 md:grid-cols-9 lg:grid-cols-12 py-5 gap-3">
-          {Array.from({ length: 5 }).map((_, index) => (
+          {Array.from({ length: 10 }).map((_, index) => (
             <div key={index} className="col-span-3">
               <AccountCardSkeleton />
             </div>

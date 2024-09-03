@@ -36,9 +36,9 @@ function CreateAccountForm() {
   };
 
   const formSubmit = async (values) => {
-    if (step !== steps.length - 1) return
-    const res = await kanakkuApiCall(createAccount, { ...values, userId: userData?._id })
-    if (res?.type === "success") return navigate("/accounts")
+    if (step !== steps.length - 1) return;
+    const res = await kanakkuApiCall(createAccount, { ...values, userId: userData?._id });
+    if (res?.type === "success") return navigate("/accounts");
   }
 
   const currentSchema = steps[step].validationSchema;
@@ -49,9 +49,9 @@ function CreateAccountForm() {
       <Formik initialValues={{
         name: "",
         balance: 0,
-        type: ""
+        icon: ""
       }} validationSchema={currentSchema} onSubmit={formSubmit} >
-        {({ validateForm }) => (
+        {({ setFieldValue, values, validateForm }) => (
           <Form>
             <motion.div
               key={step}
@@ -61,7 +61,7 @@ function CreateAccountForm() {
               transition={{ duration: 0.3 }}
             >
               <h6 className='mb-2 text-end pr-3 font-medium'>{step+1}/{steps.length}</h6>
-              <CurrentStep validateForm={validateForm} nextStep={nextStep} />
+              <CurrentStep setFieldValue={setFieldValue} values={values} validateForm={validateForm} nextStep={nextStep} />
               <div className='mt-2 px-2'>
                 {step !== 0 && <button onClick={prevStep} type='button' className='flex-center gap-1 font-medium'><IoArrowBack />Back</button>}
               </div>
