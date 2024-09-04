@@ -51,7 +51,7 @@ function App() {
 
   useEffect(() => {
     checkAuthentication();
-  }, [checkAuthentication]);
+  }, [checkAuthentication, isAuthenticated]);
 
   const authenticatedRoutes = useMemo(
     () => (

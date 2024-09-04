@@ -2,35 +2,8 @@ import React from 'react'
 import PrimaryBtn from 'components/buttons/primary';
 import FormikField from '../field'
 import * as Yup from 'yup'
-
-import { FaMoneyBill1, FaMoneyBillTransfer } from "react-icons/fa6";
-import { FaMoneyCheck } from "react-icons/fa";
-import { MdBusinessCenter } from "react-icons/md";
-import { AiFillShop } from "react-icons/ai";
 import { ErrorMessage } from 'formik';
-
-const icons = [
-    {
-        name: "Salary",
-        Icon: FaMoneyCheck
-    },
-    {
-        name: "Money",
-        Icon: FaMoneyBill1
-    },
-    {
-        name: "bill",
-        Icon: FaMoneyBillTransfer
-    },
-    {
-        name: "Business",
-        Icon: MdBusinessCenter
-    },
-    {
-        name: "Shop",
-        Icon: AiFillShop
-    }
-]
+import { icons } from 'components/icons/accounts'
 
 export const StepOne = {
     schema: Yup.object().shape({
@@ -72,7 +45,7 @@ export const StepThree = {
         <div className="rounded p-10 border bg-gray-100 lg:w-[450px]">
             <h3 className='font-bold text-xl text-center mb-4'>Account Type</h3>
             <div className="grid grid-cols-12 gap-2">
-                { icons.map(({name, Icon}) => [
+                { Object.entries(icons).map(([name, Icon]) => [
                     <div key={name} className={`col-span-3 p-4 rounded border cursor-pointer text-center ${values?.icon === name ? 'bg-green-800 text-white' : 'bg-white'} `} onClick={()=>setFieldValue('icon', name)}>
                         <Icon className='text-[30px] m-auto'/>
                         {name}
