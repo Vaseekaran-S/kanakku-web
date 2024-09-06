@@ -39,7 +39,7 @@ function Accounts() {
             </div>
           ))}
         </div>
-      ) : accounts.length > 0 ? (
+      ) : accounts.length ? (
         <div className="grid sm:grid-cols-6 md:grid-cols-9 lg:grid-cols-12 py-5 gap-3">
           {accounts.map((account) => (
             <div key={account.name} className="col-span-3">

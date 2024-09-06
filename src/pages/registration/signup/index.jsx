@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 import useKanakkuApi from 'hooks/api';
 import { userSignUp } from 'api/registration'
