@@ -23,6 +23,8 @@ const Groups = lazy(() => import("pages/groups"));
 const Profile = lazy(() => import("pages/profile"));
 const Accounts = lazy(() => import("pages/accounts"));
 const CreateAccount = lazy(() => import("pages/accounts/create"));
+const ViewAccount = lazy(() => import("pages/accounts/single"));
+const AccountSettings = lazy(() => import("pages/accounts/settings"));
 const Welcome = lazy(() => import("pages/registration/welcome"));
 
 function App() {
@@ -59,6 +61,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/accounts" element={<Accounts />} />
         <Route path="/accounts/create" element={<CreateAccount />} />
+        <Route path="/accounts/:url" element={<ViewAccount />} />
+        <Route path="/accounts/:url/settings" element={<AccountSettings />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/events" element={<Events />} />
         <Route path="/groups" element={<Groups />} />

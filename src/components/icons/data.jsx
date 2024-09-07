@@ -3,7 +3,7 @@ import { FaMoneyCheck } from "react-icons/fa";
 import { MdAccountBalance, MdBusinessCenter, MdSavings  } from "react-icons/md";
 import { AiFillShop } from "react-icons/ai";
 
-export const icons = {
+export const accountIcons = {
     Main: MdAccountBalance,
     Salary: FaMoneyCheck,
     Money: FaMoneyBill1,

@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import Card from '../'
 import { toUserTimeZone } from 'utils/timezone';
 
-import { icons } from 'components/icons/accounts'
+import { accountIcons } from 'components/icons/data';
 import IconLink from 'components/icons';
 
 import { IoSettings } from "react-icons/io5";
 import { BiTransferAlt } from "react-icons/bi";
 
 function AccountCard({ url, name, balance, icon, createdAt }) {
-  const Icon = icons[icon];
+  const Icon = accountIcons[icon];
   return (
     <Card shadow={false}>
       <h2 className='text-xl font-bold mb-3 flex gap-2'>{Icon && <Icon className="text-[30px]" />}
