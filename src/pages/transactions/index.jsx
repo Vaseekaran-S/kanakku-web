@@ -1,10 +1,11 @@
+import PageSection from 'components/sections/page'
 import React from 'react'
 
 function Transactions() {
   return (
-    <div>
+    <PageSection>
       Transactions
-    </div>
+    </PageSection>
   )
 }
 

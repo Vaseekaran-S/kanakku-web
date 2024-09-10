@@ -46,7 +46,7 @@ export const StepThree = {
             <h3 className='font-bold text-xl text-center mb-4'>Account Type</h3>
             <div className="grid grid-cols-12 gap-2">
                 { Object.entries(accountIcons).map(([name, Icon]) => [
-                    <div key={name} className={`col-span-3 p-4 rounded border cursor-pointer text-center ${values?.icon === name ? 'bg-green-800 text-white' : 'bg-white'} `} onClick={()=>setFieldValue('icon', name)}>
+                    <div key={name} className={`col-span-4 lg:col-span-3 p-4 rounded border cursor-pointer text-center ${values?.icon === name ? 'bg-green-800 text-white' : 'bg-white'} `} onClick={()=>setFieldValue('icon', name)}>
                         <Icon className='text-[30px] m-auto'/>
                         {name}
                     </div>

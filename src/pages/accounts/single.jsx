@@ -51,7 +51,7 @@ function ViewAccount() {
                     <Card shadow={false} customCss="bg-gray-100">
                         <h6 className='font-bold text-center mb-2'>Recent Transactions</h6>
                         <hr className='py-2'/>
-                        <p className='text-sm text-center'>No Activity Found. <Link to={`/transactions/create?account=${url}`} className='font-medium text-blue-500 hover:text-blue-700'>Create a Transaction</Link></p>
+                        <p className='text-sm flex-center gap-1 lg:h-[200px]'>No Activity Found. <Link to={`/transactions/create?account=${url}`} className='font-medium text-blue-500 hover:text-blue-700'>Create a Transaction</Link></p>
                     </Card>
                 </div>
             </div>
