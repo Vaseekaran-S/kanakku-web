@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateAccountForm from 'components/formik/account';
+import AccountForm from 'components/formik/account';
 import PageSection from 'components/sections/page';
 
 function CreateAccount() {
@@ -9,7 +9,7 @@ function CreateAccount() {
         <img src="/images/vectors/account.jpg" alt="Reset Password" className='w-full max-w-[400px]' />
       </div>
       <div className='flex-center md:w-[40%]'>
-        <CreateAccountForm />
+        <AccountForm />
       </div>
     </PageSection>
   )

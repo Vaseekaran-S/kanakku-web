@@ -26,6 +26,7 @@ const CreateAccount = lazy(() => import("pages/accounts/create"));
 const ViewAccount = lazy(() => import("pages/accounts/single"));
 const AccountSettings = lazy(() => import("pages/accounts/settings"));
 const Welcome = lazy(() => import("pages/registration/welcome"));
+const EditAccount = lazy(() => import("pages/accounts/edit"));
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ function App() {
         <Route path="/accounts/create" element={<CreateAccount />} />
         <Route path="/accounts/:url" element={<ViewAccount />} />
         <Route path="/accounts/:url/settings" element={<AccountSettings />} />
+        <Route path="/accounts/:url/edit" element={<EditAccount />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/events" element={<Events />} />
         <Route path="/groups" element={<Groups />} />

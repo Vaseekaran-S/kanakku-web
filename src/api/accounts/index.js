@@ -12,6 +12,18 @@ export const createAccount = async({ name, userId, balance, icon }) => {
     }
 }
 
+// PUT: Update a account
+export const updateAccount = async({ userId, name, _id, balance, icon }) => {
+    try{
+        if(!name || !_id) return { message: "Bad Action", type: "error" };
+        const { data } = await axios.put(`/v1/accounts/${_id}`, { userId, name, balance, icon })
+        return data;
+    }catch(err){
+        console.log("Error: ", err?.message);
+        return { message: "Network Error", type: "error" };
+    }
+}
+
 // GET: Get a user account data by its name
 export const getAccountData = async(accountId) => {
     try{
