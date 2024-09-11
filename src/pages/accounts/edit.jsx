@@ -3,10 +3,11 @@ import AccountForm from 'components/formik/account'
 import PageSection from 'components/sections/page'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function EditAccount() {
-    const { _id: user } = useSelector((store) => store.user.userData);
+    const navigate = useNavigate();
+    const { _id: userId } = useSelector((store) => store.user.userData);
     const { url } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [account, setAccount] = useState({});
@@ -14,14 +15,15 @@ function EditAccount() {
     useEffect(() => {
         const fetchAccount = async () => {
             try {
-                const data = await getAccountByUrl(user, url);
-                setAccount(data);
+                const response = await getAccountByUrl(userId, url);
+                if(response?.type === "error") return navigate("/accounts")
+                setAccount(response);
             } finally {
                 setIsLoading(false);
             }
         };
         fetchAccount();
-    }, [url, user])
+    }, [url, userId])
 
     return (
         <PageSection customCss="flex-center flex-col md:flex-row gap-4 py-7">

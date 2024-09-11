@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import PrimaryBtn from 'components/buttons/primary';
-import { getAllAccounts } from 'api/accounts';
 import { useSelector } from 'react-redux';
+
+import PrimaryBtn from 'components/buttons/primary';
 import AccountCard from 'components/cards/accounts';
 import AccountCardSkeleton from 'components/cards/accounts/skeleton';
+import { getAllAccounts } from 'api/accounts';
 
 function Accounts() {
   const [isLoading, setIsLoading] = useState(true);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { getAccountByUrl } from 'api/accounts';
 import PageSection from 'components/sections/page'
@@ -13,6 +13,8 @@ import { MdModeEdit } from "react-icons/md";
 import Card from 'components/cards';
 
 function ViewAccount() {
+    const navigate = useNavigate();
+
     const { _id } = useSelector((store) => store.user.userData);
     const { user = _id, url } = useParams();
     const [isLoading, setIsLoading] = useState(true);
@@ -21,8 +23,9 @@ function ViewAccount() {
     useEffect(() => {
         const fetchAccount = async () => {
             try {
-                const data = await getAccountByUrl(user, url);
-                setAccount(data);
+                const response = await getAccountByUrl(user, url);
+                if(response?.type === "error") return navigate("/accounts")
+                setAccount(response);
             } finally {
                 setIsLoading(false);
             }
