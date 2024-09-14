@@ -9,12 +9,17 @@ import { accountIcons } from 'components/icons/data';
 import IconLink from 'components/icons';
 import { IoSettings } from "react-icons/io5";
 import { BiTransferAlt } from "react-icons/bi";
-import { MdModeEdit } from "react-icons/md";
+import { MdModeEdit, MdOutlinePublic } from "react-icons/md";
+import { RiGitRepositoryPrivateFill } from "react-icons/ri";
+
 import Card from 'components/cards';
+import PrimaryBtn from 'components/buttons/primary';
+
+import { toUserTimeZone } from 'utils/timezone';
 
 function AccountSettings() {
     const navigate = useNavigate();
-    
+
     const { _id } = useSelector((store) => store.user.userData);
     const { user = _id, url } = useParams();
     const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +29,7 @@ function AccountSettings() {
         const fetchAccount = async () => {
             try {
                 const response = await getAccountByUrl(user, url);
-                if(response?.type === "error") return navigate("/accounts")
+                if (response?.type === "error") return navigate("/accounts")
                 setAccount(response);
             } finally {
                 setIsLoading(false);
@@ -33,29 +38,43 @@ function AccountSettings() {
         fetchAccount();
     }, [url])
 
-    const { name, icon, balance } = account;
+    const { name, icon, balance, createdAt } = account;
     const Icon = accountIcons[icon];
 
     return (
         <PageSection>
             <div className='flex justify-between items-center mb-3'>
-                <h2 className='text-2xl font-bold flex gap-3 items-center'>{Icon && <Icon className="text-[40px]" />}{name}</h2>
+                <Link to={`/accounts/${url}`}>
+                    <h2 className='text-xl font-bold flex gap-1 items-center'>
+                        {Icon && <Icon className="text-[30px]" />}{name}
+                    </h2>
+                </Link>
                 <div className='flex gap-2'>
                     <IconLink title="Transactions" link={`/transactions/${url}`} Icon={BiTransferAlt} customCss="text-[20px]" />
                     <IconLink title="Edit" link={`/accounts/${url}/edit`} Icon={MdModeEdit} customCss="text-[20px]" />
-                    <IconLink title="Settings" link={`/accounts/${url}/settings`} Icon={IoSettings} customCss="text-[20px]" />
+                    <IconLink title="Settings" link={`/accounts/${url}/settings`} Icon={IoSettings} customCss="text-[20px] border-2 border-black" />
                 </div>
             </div>
-            <div className='grid grid-cols-12 py-3'>
-                <div className='col-span-9'>
-                    <h2 className='font-bold text-xl ml-3'>Balance: ₹ {balance}</h2>
+            <div className="max-w-[800px] bg-gray-200 rounded mt-10 p-5 m-auto">
+                <h2 className='font-bold text-xl'>Account Details</h2>
+                <div className='font-medium mt-4'>Name: <span className='font-bold'>{name}</span></div>
+                <div className='font-medium mt-2'>Balance: <span className='font-bold'>Rs.{balance}</span></div>
+                <div className='font-medium mt-2 flex gap-1'>Type: <span className='font-bold flex items-center'>Private <RiGitRepositoryPrivateFill/> </span></div>
+                <div className='font-medium mt-2'>Created At: <span className='font-bold'>{toUserTimeZone(createdAt)}</span></div>
+            </div>
+            <div className="max-w-[800px] divide-y divide-black bg-gray-200 rounded mt-10 p-5 m-auto">
+                <h2 className='font-bold text-xl'>Account Settings</h2>
+                <div className='flex justify-between items-center mt-3 p-2'>
+                    <p className='font-medium'>Edit this Account:</p>
+                    <PrimaryBtn link={`/accounts/${url}/edit`} customCss="p-[2px] text-sm"> Edit </PrimaryBtn>
                 </div>
-                <div className="col-span-3">
-                    <Card shadow={false} customCss="bg-gray-100">
-                        <h6 className='font-bold text-center mb-2'>Recent Transactions</h6>
-                        <hr className='py-2'/>
-                        <p className='text-sm flex-center gap-1 lg:h-[200px]'>No Activity Found. <Link to={`/transactions/create?account=${url}`} className='font-medium text-blue-500 hover:text-blue-700'>Create a Transaction</Link></p>
-                    </Card>
+                <div className='flex justify-between items-center p-2'>
+                    <p className='font-medium'>Change Account visibility:</p>
+                    <PrimaryBtn  customCss="p-[2px] text-sm bg-blue-600 hover:bg-blue-800">Change to Public</PrimaryBtn>
+                </div>
+                <div className='flex justify-between items-center pt-2 px-2'>
+                    <p className='font-medium'>Delete this Account:</p>
+                    <PrimaryBtn customCss="p-[2px] text-sm bg-red-700 hover:bg-red-800">Delete</PrimaryBtn>
                 </div>
             </div>
         </PageSection>
