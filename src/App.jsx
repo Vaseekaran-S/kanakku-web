@@ -9,6 +9,7 @@ import { verifyToken } from "api/registration";
 import Layout from "./layout";
 import Loader, { PageLoader } from "components/loader";
 import ScrollTopTOp from "components/sections/scrollTop";
+import ComingSoon from "pages/coming-soon";
 
 // Lazy load pages
 const Home = lazy(() => import("pages/home"));
@@ -67,8 +68,8 @@ function App() {
         <Route path="/accounts/:url/settings" element={<AccountSettings />} />
         <Route path="/accounts/:url/edit" element={<EditAccount />} />
         <Route path="/transactions" element={<Transactions />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/groups" element={<Groups />} />
+        <Route path="/events" element={<ComingSoon />} />
+        <Route path="/groups" element={<ComingSoon />} />
         <Route path="/profile" element={<Profile />} />
       </>
     ),
