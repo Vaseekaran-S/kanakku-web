@@ -8,6 +8,7 @@ import { verifyToken } from "api/registration";
 
 import Layout from "./layout";
 import Loader, { PageLoader } from "components/loader";
+import ScrollTopTOp from "components/sections/scrollTop";
 
 // Lazy load pages
 const Home = lazy(() => import("pages/home"));
@@ -90,6 +91,7 @@ function App() {
     <BrowserRouter basename="/">
       <Suspense fallback={<Loader />}>
         <Layout>
+          <ScrollTopTOp />
           <Routes>
             {isLoading ? (
               <Route path="*" element={<PageLoader />} />
