@@ -1,7 +1,9 @@
-import { FaMoneyBill1, FaMoneyBillTransfer } from "react-icons/fa6";
-import { FaMoneyCheck } from "react-icons/fa";
-import { MdAccountBalance, MdBusinessCenter, MdSavings  } from "react-icons/md";
+import { FaMoneyBill1, FaMoneyBillTransfer, FaMobile } from "react-icons/fa6";
+import { FaShoppingCart, FaLightbulb, FaBus, FaRegMoneyBillAlt, FaHospitalAlt, FaTools, FaExclamationTriangle, FaPiggyBank, FaChartLine, FaGift, FaGraduationCap, FaBaby, FaUniversity, FaPlaneDeparture, FaMoneyCheck } from "react-icons/fa";
+import { MdHome, MdOutlineHealthAndSafety, MdOutlineLocalMovies, MdRestaurantMenu, MdOutlineSportsSoccer, MdAccountBalance, MdBusinessCenter, MdSavings } from "react-icons/md";
 import { AiFillShop } from "react-icons/ai";
+import { GiClothes } from "react-icons/gi";
+import { BsFuelPumpFill } from "react-icons/bs";
 
 export const accountIcons = {
     Main: MdAccountBalance,
@@ -10,5 +12,44 @@ export const accountIcons = {
     Bills: FaMoneyBillTransfer,
     Business: MdBusinessCenter,
     Shop: AiFillShop,
-    Savings: MdSavings 
+    Savings: MdSavings
 }
+
+export const expenseIcons = {
+    All: {},
+    Fixed: {
+        Rent: MdHome,
+        Insurance: MdOutlineHealthAndSafety,
+        Loan: FaRegMoneyBillAlt,
+        Recharge: FaMobile
+    },
+    Bills: {
+        Groceries: FaShoppingCart,
+        Utilities: FaLightbulb,
+        Transport: FaBus,
+        Cinema: MdOutlineLocalMovies,
+        Fuel: BsFuelPumpFill
+    },
+    Discretionary: {
+        Hobbies: MdOutlineSportsSoccer,
+        Travel: FaPlaneDeparture,
+        Luxury: GiClothes,
+        DiningOut: MdRestaurantMenu,
+    },
+    Emergency: {
+        Medical: FaHospitalAlt,
+        Repairs: FaTools,
+        Unplanned: FaExclamationTriangle,
+    },
+    Economical: {
+        Savings: FaPiggyBank,
+        Investment: FaChartLine,
+    },
+    Miscellaneous: {
+        Gifts: FaGift,
+        Education: FaGraduationCap,
+        Childcare: FaBaby,
+        BankFees: FaUniversity,
+    }
+};
+expenseIcons.All = Object.assign({}, ...Object.values(expenseIcons).map(values => values));

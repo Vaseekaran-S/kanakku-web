@@ -19,16 +19,21 @@ const ForgotPassword = lazy(() => import("pages/registration/forgot-password"));
 const PageNotFound = lazy(() => import("pages/notFound"));
 const ResetPassword = lazy(() => import("pages/registration/reset-password"));
 const EmailVerification = lazy(() => import("pages/registration/verify-email"));
-const Transactions = lazy(() => import("pages/transactions"));
+
+const Welcome = lazy(() => import("pages/registration/welcome"));
+const Profile = lazy(() => import("pages/profile"));
+
 const Events = lazy(() => import("pages/events"));
 const Groups = lazy(() => import("pages/groups"));
-const Profile = lazy(() => import("pages/profile"));
+
+const Transactions = lazy(() => import("pages/transactions"));
+const CreateTransaction = lazy(() => import("pages/transactions/create"));
+
 const Accounts = lazy(() => import("pages/accounts"));
 const CreateAccount = lazy(() => import("pages/accounts/create"));
 const ViewAccount = lazy(() => import("pages/accounts/single"));
-const AccountSettings = lazy(() => import("pages/accounts/settings"));
-const Welcome = lazy(() => import("pages/registration/welcome"));
 const EditAccount = lazy(() => import("pages/accounts/edit"));
+const AccountSettings = lazy(() => import("pages/accounts/settings"));
 
 function App() {
   const dispatch = useDispatch();
@@ -62,15 +67,16 @@ function App() {
     () => (
       <>
         <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/accounts" element={<Accounts />} />
         <Route path="/accounts/create" element={<CreateAccount />} />
         <Route path="/accounts/:url" element={<ViewAccount />} />
         <Route path="/accounts/:url/settings" element={<AccountSettings />} />
         <Route path="/accounts/:url/edit" element={<EditAccount />} />
         <Route path="/transactions" element={<Transactions />} />
+        <Route path="/transactions/create" element={<CreateTransaction />} />
         <Route path="/events" element={<ComingSoon />} />
         <Route path="/groups" element={<ComingSoon />} />
-        <Route path="/profile" element={<Profile />} />
       </>
     ),
     []
