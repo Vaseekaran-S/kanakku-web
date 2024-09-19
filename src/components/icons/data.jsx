@@ -1,5 +1,5 @@
 import { FaMoneyBill1, FaMoneyBillTransfer, FaMobile } from "react-icons/fa6";
-import { FaShoppingCart, FaLightbulb, FaBus, FaRegMoneyBillAlt, FaHospitalAlt, FaTools, FaExclamationTriangle, FaPiggyBank, FaChartLine, FaGift, FaGraduationCap, FaBaby, FaUniversity, FaPlaneDeparture, FaMoneyCheck } from "react-icons/fa";
+import { FaShoppingCart, FaLightbulb, FaBus, FaHandshake, FaRegMoneyBillAlt, FaHospitalAlt, FaTools, FaExclamationTriangle, FaPiggyBank, FaChartLine, FaGift, FaGraduationCap, FaBaby, FaUniversity, FaPlaneDeparture, FaMoneyCheck } from "react-icons/fa";
 import { MdHome, MdOutlineHealthAndSafety, MdOutlineLocalMovies, MdRestaurantMenu, MdOutlineSportsSoccer, MdAccountBalance, MdBusinessCenter, MdSavings } from "react-icons/md";
 import { AiFillShop } from "react-icons/ai";
 import { GiClothes } from "react-icons/gi";
@@ -16,7 +16,6 @@ export const accountIcons = {
 }
 
 export const expenseIcons = {
-    All: {},
     Fixed: {
         Rent: MdHome,
         Insurance: MdOutlineHealthAndSafety,
@@ -52,4 +51,23 @@ export const expenseIcons = {
         BankFees: FaUniversity,
     }
 };
-expenseIcons.All = Object.assign({}, ...Object.values(expenseIcons).map(values => values));
+
+export const incomeIcons = {
+    Salary: {
+        Main: MdAccountBalance,
+        Salary: FaMoneyCheck,
+        Bonus: FaRegMoneyBillAlt
+    },
+    Business: {
+        BusinessIncome: MdBusinessCenter,
+        Freelance: FaHandshake
+    },
+    Investments: {
+        Dividends: MdSavings,
+        RentalIncome: FaMoneyBill1,
+        Interest: FaPiggyBank
+    },
+    Miscellaneous: {
+        Other: FaRegMoneyBillAlt
+    }
+};

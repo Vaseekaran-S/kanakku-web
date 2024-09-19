@@ -27,7 +27,7 @@ export const getAccountByUrl = async (userId, accountUrl) => {
 // GET: Get all accounts data of a user
 export const getAllAccounts = async (userId) => {
     try {
-        if (!userId) return {};
+        if (!userId) return [];
         const { data } = await axios.get(`/v1/accounts/user/${userId}`)
         return data;
     } catch (err) {

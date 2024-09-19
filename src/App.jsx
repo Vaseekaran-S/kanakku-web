@@ -23,8 +23,8 @@ const EmailVerification = lazy(() => import("pages/registration/verify-email"));
 const Welcome = lazy(() => import("pages/registration/welcome"));
 const Profile = lazy(() => import("pages/profile"));
 
-const Events = lazy(() => import("pages/events"));
-const Groups = lazy(() => import("pages/groups"));
+// const Events = lazy(() => import("pages/events"));
+// const Groups = lazy(() => import("pages/groups"));
 
 const Transactions = lazy(() => import("pages/transactions"));
 const CreateTransaction = lazy(() => import("pages/transactions/create"));
