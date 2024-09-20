@@ -11,6 +11,7 @@ import { IoSettings } from "react-icons/io5";
 import { BiTransferAlt } from "react-icons/bi";
 import { MdModeEdit } from "react-icons/md";
 import Card from 'components/cards';
+import AccountHeader from 'components/header/account';
 
 function ViewAccount() {
     const navigate = useNavigate();
@@ -38,14 +39,7 @@ function ViewAccount() {
 
     return (
         <PageSection>
-            <div className='flex justify-between items-center mb-3'>
-                <h2 className='text-2xl font-bold flex gap-3 items-center'>{Icon && <Icon className="text-[40px]" />}{name}</h2>
-                <div className='flex gap-2'>
-                    <IconLink title="Transactions" link={`/transactions/${url}`} Icon={BiTransferAlt} customCss="text-[20px]" />
-                    <IconLink title="Edit" link={`/accounts/${url}/edit`} Icon={MdModeEdit} customCss="text-[20px]" />
-                    <IconLink title="Settings" link={`/accounts/${url}/settings`} Icon={IoSettings} customCss="text-[20px]" />
-                </div>
-            </div>
+            <AccountHeader url={url} name={name} Icon={Icon} />
             <div className='grid grid-cols-12 py-3'>
                 <div className='col-span-9'>
                     <h2 className='font-bold text-xl ml-3'>Balance: ₹ {balance}</h2>

@@ -17,6 +17,7 @@ import PrimaryBtn from 'components/buttons/primary';
 import { toUserTimeZone } from 'utils/timezone';
 import useKanakkuApi from 'hooks/api';
 import Modal from 'components/modal';
+import AccountHeader from 'components/header/account';
 
 function AccountSettings() {
     const navigate = useNavigate();
@@ -26,7 +27,13 @@ function AccountSettings() {
     const { url } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [isDeleteAlertOn, setIsDeleteAlertOn] = useState(false);
+
     const [account, setAccount] = useState({});
+    const { name, icon, balance, createdAt, type, _id } = account;
+    const Icon = accountIcons[icon];
+
+    const [accountType, setAccountType] = useState(type);
+    const isAccountPrivate = accountType === "Private";
 
     useEffect(() => {
         const fetchAccount = async () => {
@@ -39,17 +46,14 @@ function AccountSettings() {
             }
         };
         fetchAccount();
-    }, [url, apiCall])
-
-    const { name, icon, balance, createdAt, type, _id } = account;
-    const isAccountPrivate = type === "Private";
-    const Icon = accountIcons[icon];
+    }, [url, accountType])
 
     if(isDeleteAlertOn) document.body.style.overflow = 'hidden'
     else document.body.style.overflow = 'auto'
 
     const changeAccountTypeFun = async (type) => {
         await apiCall(changeAccountType, { _id, type });
+        setAccountType(type);
     }
 
     const deleteAccountFun = async () => {
@@ -67,18 +71,7 @@ function AccountSettings() {
                         <PrimaryBtn onClick={()=>setIsDeleteAlertOn(false)} customCss="p-[2px] text-sm bg-blue-600 hover:bg-blue-800">No, Cancel</PrimaryBtn>
                     </div>
                 </Modal>}
-            <div className='flex justify-between items-center mb-3'>
-                <Link to={`/accounts/${url}`}>
-                    <h2 className='text-xl font-bold flex gap-1 items-center'>
-                        {Icon && <Icon className="text-[30px]" />}{name}
-                    </h2>
-                </Link>
-                <div className='flex gap-2'>
-                    <IconLink title="Transactions" link={`/transactions/${url}`} Icon={BiTransferAlt} customCss="text-[20px]" />
-                    <IconLink title="Edit" link={`/accounts/${url}/edit`} Icon={MdModeEdit} customCss="text-[20px]" />
-                    <IconLink title="Settings" link={`/accounts/${url}/settings`} Icon={IoSettings} customCss="text-[20px] border-2 border-black" />
-                </div>
-            </div>
+            <AccountHeader url={url} name={name} Icon={Icon} />
             <div className="max-w-[800px] bg-gray-200 rounded mt-10 p-5 m-auto">
                 <h2 className='font-bold text-xl'>Account Details</h2>
                 <div className='font-medium mt-4'>Name: <span className='font-bold'>{name}</span></div>
