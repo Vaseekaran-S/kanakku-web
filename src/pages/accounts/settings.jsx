@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { changeAccountType, deleteAccountById, getAccountByUrl } from 'api/accounts';
 import PageSection from 'components/sections/page'
-import { accountIcons } from 'components/icons/data';
 
-import IconLink from 'components/icons';
-import { IoSettings } from "react-icons/io5";
-import { BiTransferAlt } from "react-icons/bi";
-import { MdModeEdit, MdOutlinePublic } from "react-icons/md";
+import { MdOutlinePublic } from "react-icons/md";
 import { RiGitRepositoryPrivateFill } from "react-icons/ri";
 
 import PrimaryBtn from 'components/buttons/primary';
@@ -30,7 +26,6 @@ function AccountSettings() {
 
     const [account, setAccount] = useState({});
     const { name, icon, balance, createdAt, type, _id } = account;
-    const Icon = accountIcons[icon];
 
     const [accountType, setAccountType] = useState(type);
     const isAccountPrivate = accountType === "Private";
@@ -71,7 +66,7 @@ function AccountSettings() {
                         <PrimaryBtn onClick={()=>setIsDeleteAlertOn(false)} customCss="p-[2px] text-sm bg-blue-600 hover:bg-blue-800">No, Cancel</PrimaryBtn>
                     </div>
                 </Modal>}
-            <AccountHeader url={url} name={name} Icon={Icon} />
+            <AccountHeader url={url} name={name} icon={icon} />
             <div className="max-w-[800px] bg-gray-200 rounded mt-10 p-5 m-auto">
                 <h2 className='font-bold text-xl'>Account Details</h2>
                 <div className='font-medium mt-4'>Name: <span className='font-bold'>{name}</span></div>

@@ -5,8 +5,9 @@ import IconLink from 'components/icons'
 import { BiTransferAlt } from 'react-icons/bi'
 import { IoSettings } from 'react-icons/io5'
 import { MdModeEdit } from 'react-icons/md'
+import { accountIcons } from 'components/icons/data';
 
-function AccountHeader({ url, name, Icon }) {
+function AccountHeader({ url, name, icon }) {
     const { pathname } = useLocation();
 
     const links = [
@@ -26,6 +27,8 @@ function AccountHeader({ url, name, Icon }) {
             link: `/accounts/${url}/settings`
         }
     ]
+
+    const Icon = accountIcons[icon];
 
     return (
         <div className='flex justify-between items-center mb-4'>

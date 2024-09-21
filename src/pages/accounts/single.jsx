@@ -4,12 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { getAccountByUrl } from 'api/accounts';
 import PageSection from 'components/sections/page'
-import { accountIcons } from 'components/icons/data';
 
-import IconLink from 'components/icons';
-import { IoSettings } from "react-icons/io5";
-import { BiTransferAlt } from "react-icons/bi";
-import { MdModeEdit } from "react-icons/md";
 import Card from 'components/cards';
 import AccountHeader from 'components/header/account';
 
@@ -35,11 +30,10 @@ function ViewAccount() {
     }, [url])
 
     const { name, icon, balance } = account;
-    const Icon = accountIcons[icon];
 
     return (
         <PageSection>
-            <AccountHeader url={url} name={name} Icon={Icon} />
+            <AccountHeader url={url} name={name} icon={icon} />
             <div className='grid grid-cols-12 py-3'>
                 <div className='col-span-9'>
                     <h2 className='font-bold text-xl ml-3'>Balance: ₹ {balance}</h2>
