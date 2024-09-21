@@ -28,6 +28,7 @@ const Profile = lazy(() => import("pages/profile"));
 
 const Transactions = lazy(() => import("pages/transactions"));
 const CreateTransaction = lazy(() => import("pages/transactions/create"));
+const AccountTransaction = lazy(() => import("pages/transactions/account"));
 
 const Accounts = lazy(() => import("pages/accounts"));
 const CreateAccount = lazy(() => import("pages/accounts/create"));
@@ -75,6 +76,7 @@ function App() {
         <Route path="/accounts/:url/edit" element={<EditAccount />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/transactions/create" element={<CreateTransaction />} />
+        <Route path="/transactions/:url" element={<AccountTransaction />} />
         <Route path="/events" element={<ComingSoon />} />
         <Route path="/groups" element={<ComingSoon />} />
       </>

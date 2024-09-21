@@ -9,32 +9,37 @@ import { FaCirclePlus } from "react-icons/fa6";
 import { accountIcons, expenseIcons, incomeIcons } from 'components/icons/data';
 import PrimaryBtn from 'components/buttons/primary';
 import Card from 'components/cards';
+import useKanakkuApi from 'hooks/api';
+import { createTransaction } from 'api/transactions';
+import { useNavigate } from 'react-router-dom';
 
 function TransactionForm({ transactionData, formType }) {
-    const { _id } = useSelector((store) => store.user.userData);
+    const apiCall = useKanakkuApi();
+    const navigate = useNavigate();
 
+    const { _id: userId } = useSelector((store) => store.user.userData);
     const [isLoading, setIsLoading] = useState(true);
     const [accounts, setAccounts] = useState([]);
     useEffect(() => {
         const fetchAccounts = async () => {
             try {
-                const data = await getAllAccounts(_id);
+                const data = await getAllAccounts(userId);
                 setAccounts(data);
             } finally {
                 setIsLoading(false);
             }
         };
         fetchAccounts();
-    }, [_id]);
+    }, [userId]);
 
     const [transactionType, setTransactionType] = useState("Income");
     const categoryIcons = useMemo(() => transactionType === "Income" ? incomeIcons : expenseIcons, [transactionType]);
     const [iconCategoryType, setIconCategoryType] = useState("Fixed");
-
     useEffect(() => {
         setIconCategoryType(transactionType === "Income" ? "Salary" : "Fixed");
     }, [transactionType])
 
+    // Images Upload
     const [images, setImages] = useState([]);
 
     const inputRef = useRef(null);
@@ -45,11 +50,21 @@ function TransactionForm({ transactionData, formType }) {
         if (file) setImages([file, ...images])
     }
 
+    // Select Transaction Type
+    const selectTransactionType = (type, setFieldValue) => {
+        setFieldValue('type', type);
+        setFieldValue('category', '');
+        setTransactionType(type);
+    }
+
+    // Formik Properties
     const initialValues = {
         amount: "",
+        type: transactionType,
         account: "",
         category: "",
-        notes: ""
+        notes: "",
+        userId
     }
 
     const validationSchema = Yup.object().shape({
@@ -58,9 +73,9 @@ function TransactionForm({ transactionData, formType }) {
         category: Yup.string().required('Select a Category*')
     })
 
-    const formSubmit = (values) => {
-        console.log(isLoading);
-        alert(values);
+    const formSubmit = async(values) => {
+        const response = await apiCall(createTransaction, values);
+        if(response?.type === "success") navigate("/transactions")
     }
 
     return (
@@ -71,7 +86,7 @@ function TransactionForm({ transactionData, formType }) {
                         <div className='py-5'>
                             <div className='flex gap-1 mb-3'>
                                 {["Income", "Expense"].map(label => [
-                                    <button key={label} onClick={() => { setFieldValue('category', ''); setTransactionType(label) }} disabled={transactionType === label} className={`px-3 py-2 border font-bold rounded-lg w-full ${transactionType === label ? 'bg-green-600 hover:bg-green-800 text-white' : 'bg-gray-100 hover:bg-gray-300 text-black'}`} >{label}</button>
+                                    <button key={label} onClick={() => selectTransactionType(label, setFieldValue) } disabled={transactionType === label} className={`px-3 py-2 border font-bold rounded-lg w-full ${transactionType === label ? 'bg-green-600 hover:bg-green-800 text-white' : 'bg-gray-100 hover:bg-gray-300 text-black'}`} >{label}</button>
                                 ])}
                             </div>
                             <h2 className='font-bold text-xl mb-3'>Amount</h2>
@@ -95,8 +110,8 @@ function TransactionForm({ transactionData, formType }) {
                                         </div>
                                     ])
                                     :
-                                    accounts.map(({ name, icon, Icon = accountIcons[icon] }) => [
-                                        <div key={name} className={`col-span-4 md:col-span-3 lg:col-span-1 p-4 rounded border cursor-pointer text-center ${values?.account === name ? 'bg-blue-800 text-white' : 'bg-gray-100'} `} onClick={() => setFieldValue('account', name)}>
+                                    accounts.map(({ _id, name, icon, Icon = accountIcons[icon] }) => [
+                                        <div key={name} className={`col-span-4 md:col-span-3 lg:col-span-1 p-4 rounded border cursor-pointer text-center ${values?.account === _id ? 'bg-blue-800 text-white' : 'bg-gray-100'} `} onClick={() => setFieldValue('account', _id)}>
                                             <Icon className='text-[20px] m-auto' />
                                             <p className='font-medium text-sm'>{name}</p>
                                         </div>
@@ -134,9 +149,10 @@ function TransactionForm({ transactionData, formType }) {
                                 ])}
                                 {images?.length < 4 &&
                                     <div className="col-span-3">
-                                        <div className='aspect-square border p-4 rounded bg-gray-200 flex-center cursor-pointer' onClick={selectImage}>
+                                        <div className='aspect-square border p-4 flex-col rounded bg-gray-200 flex-center cursor-pointer' >
                                             <input ref={inputRef} onChange={selectedImage} type="file" hidden accept='image/*' />
-                                            <FaCirclePlus fontSize={30} />
+                                            {/* <FaCirclePlus fontSize={30} /> */}
+                                            <p className='font-bold text-green'>Coming Soon</p>
                                         </div>
                                     </div>
                                 }
