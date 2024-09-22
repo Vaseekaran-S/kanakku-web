@@ -72,9 +72,6 @@ export const incomeIcons = {
     }
 };
 
-expenseIcons.All = Object.assign({}, ...Object.values(expenseIcons).map(values => values));
-
-
 export const transactionIcons = {
     ...Object.assign({}, ...Object.values(incomeIcons).map(values => values)),
     ...Object.assign({}, ...Object.values(expenseIcons).map(values => values))
