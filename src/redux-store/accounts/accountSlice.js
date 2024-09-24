@@ -25,5 +25,7 @@ const accountsSlice = createSlice({
     }
 })
 
+export const selectAccountByUrl = (accounts, accountUrl) => accounts.data.find(account => account.url === accountUrl) || null;
+
 export { fetchAccounts };
 export default accountsSlice.reducer
