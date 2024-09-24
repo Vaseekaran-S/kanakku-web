@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 import userReducer from "./user/userSlice";
 import popupReducer from "./popups/popupSlice";
+import accountReducer from "./accounts/accountSlice";
 
 const appReducer = combineReducers({
     user: userReducer,
-    popup: popupReducer
+    popup: popupReducer,
+    accounts: accountReducer
 })
 
 const rootReducer = (state, action) => {
