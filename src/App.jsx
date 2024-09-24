@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setAuthentication, setUserData, setUserMail } from "redux-store/user/userSlice";
+import { fetchAccounts } from "redux-store/accounts/accountSlice";
+
 import { getUser } from "api/user";
 import { verifyToken } from "api/registration";
 
@@ -49,12 +51,11 @@ function App() {
         if (isTokenValid) {
           dispatch(setUserMail(userMail));
           const userData = await getUser(userMail);
+          dispatch(fetchAccounts(userData?._id))
           dispatch(setAuthentication(true));
           dispatch(setUserData(userData));
         }
       }
-    } catch (error) {
-      console.error("Authentication check failed:", error);
     } finally {
       setIsLoading(false);
     }
