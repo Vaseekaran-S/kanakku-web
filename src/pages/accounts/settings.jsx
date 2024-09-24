@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { changeAccountType, deleteAccountById, getAccountByUrl } from 'api/accounts';
+import { changeAccountType, deleteAccountById } from 'api/accounts';
 import PageSection from 'components/sections/page'
 
 import { MdOutlinePublic } from "react-icons/md";
@@ -14,34 +14,20 @@ import { toUserTimeZone } from 'utils/timezone';
 import useKanakkuApi from 'hooks/api';
 import Modal from 'components/modal';
 import AccountHeader from 'components/header/account';
+import { selectAccountByUrl } from 'redux-store/accounts/accountSlice';
 
 function AccountSettings() {
     const navigate = useNavigate();
     const apiCall = useKanakkuApi();
 
-    const { _id: userId } = useSelector((store) => store.user.userData);
     const { url } = useParams();
-    const [isLoading, setIsLoading] = useState(true);
     const [isDeleteAlertOn, setIsDeleteAlertOn] = useState(false);
 
-    const [account, setAccount] = useState({});
+    const account = useSelector(state => selectAccountByUrl(state.accounts, url));
     const { name, icon, balance, createdAt, type, _id } = account;
 
     const [accountType, setAccountType] = useState(type);
     const isAccountPrivate = accountType === "Private";
-
-    useEffect(() => {
-        const fetchAccount = async () => {
-            try {
-                const response = await getAccountByUrl(userId, url);
-                if (response?.type === "error") return navigate("/accounts")
-                setAccount(response);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchAccount();
-    }, [url, accountType])
 
     if(isDeleteAlertOn) document.body.style.overflow = 'hidden'
     else document.body.style.overflow = 'auto'

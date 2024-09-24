@@ -1,53 +1,92 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { getAccountByUrl } from 'api/accounts';
-import PageSection from 'components/sections/page'
+import { getTransactionsDonutChart, getTransactionsByAccount } from 'api/transactions';
 
-import Card from 'components/cards';
+import PageSection from 'components/sections/page';
 import AccountHeader from 'components/header/account';
+import RecentTransaction from 'components/cards/transactions/recent';
+import ToggleBtn from 'components/buttons/toggle';
+import Card from 'components/cards';
+import DonutChart from 'components/charts/donut';
+
+import { selectAccountByUrl } from 'redux-store/accounts/accountSlice';
 
 function ViewAccount() {
     const navigate = useNavigate();
-
     const { _id } = useSelector((store) => store.user.userData);
     const { user = _id, url } = useParams();
+
+    const account = useSelector(state => selectAccountByUrl(state.accounts, url));
+
     const [isLoading, setIsLoading] = useState(true);
-    const [account, setAccount] = useState({});
+    const [type, setType] = useState("Income");
+
+    const [recentTransactions, setRecentTransactions] = useState([]);
+    const [incomeDonut, setIncomeDonut] = useState([]);
+    const [expenseDonut, setExpenseDonut] = useState([]);
+
+    const fetchData = useCallback(async () => {
+        try {
+            const [recentTransactions, incomeDonut, expenseDonut] = await Promise.all([
+                getTransactionsByAccount(account?._id, { length: 5 }),
+                getTransactionsDonutChart(account?._id, { type: "Income" }),
+                getTransactionsDonutChart(account?._id, { type: "Expense" }),
+            ]);
+
+            setRecentTransactions(recentTransactions);
+            setIncomeDonut(incomeDonut);
+            setExpenseDonut(expenseDonut);
+        } catch (error) {
+            navigate("/accounts");
+        } finally {
+            setIsLoading(false);
+        }
+    }, [user, url]);
 
     useEffect(() => {
-        const fetchAccount = async () => {
-            try {
-                const response = await getAccountByUrl(user, url);
-                if(response?.type === "error") return navigate("/accounts")
-                setAccount(response);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchAccount();
-    }, [url])
+        fetchData();
+    }, [fetchData]);
 
     const { name, icon, balance } = account;
 
     return (
         <PageSection>
             <AccountHeader url={url} name={name} icon={icon} />
-            <div className='grid grid-cols-12 py-3'>
-                <div className='col-span-9'>
-                    <h2 className='font-bold text-xl ml-3'>Balance: ₹ {balance}</h2>
-                </div>
-                <div className="col-span-3">
-                    <Card shadow={false} customCss="bg-gray-100">
-                        <h6 className='font-bold text-center mb-2'>Recent Transactions</h6>
-                        <hr className='py-2'/>
-                        <p className='text-sm flex-center gap-1 lg:h-[200px]'>No Activity Found. <Link to={`/transactions/create?account=${url}`} className='font-medium text-blue-500 hover:text-blue-700'>Create a Transaction</Link></p>
+            <div className="grid grid-cols-12 py-3 gap-3">
+                <div className="col-span-12 lg:col-span-9">
+                    <div className="flex gap-1 pb-5">
+                        {["Income", "Expense"].map((label) => (
+                            <ToggleBtn key={label} active={type === label} onClick={() => setType(label)} customCss="rounded-[20px]">
+                                {label}
+                            </ToggleBtn>
+                        ))}
+                    </div>
+                    <Card shadow={false} customCss="lg:p-10">
+                        <div className="grid grid-cols-12">
+                            <div className="col-span-12 lg:col-span-4">
+                            {type === "Income" ? 
+                                <DonutChart key={1} data={incomeDonut} customCss="min-h-[300px]" />
+                            : 
+                                <DonutChart key={2} data={expenseDonut} customCss="min-h-[300px]" />
+                            }
+                            </div>
+                            <div className="col-span-12 lg:col-span-8">
+                                {/* Placeholder for other charts */}
+                            </div>
+                        </div>
                     </Card>
+                </div>
+                <div className="col-span-12 lg:col-span-3">
+                    <h2 className="font-medium text-lg px-4 py-3 rounded mb-4 bg-gray-100">
+                        Current Balance: <span className="font-bold">₹{balance}</span>
+                    </h2>
+                    <RecentTransaction transactions={recentTransactions} />
                 </div>
             </div>
         </PageSection>
-    )
+    );
 }
 
-export default ViewAccount
+export default ViewAccount;
