@@ -43,8 +43,6 @@ function TransactionsTable({ accountId }) {
         const fetchAccount = async () => {
             try {
                 const transactions = await getTransactionsByAccount(accountId, { row: steps });
-                console.log(transactions);
-                
                 setTransactions(prev => [...prev, ...transactions]);
             } finally {
                 setIsLoading(false);

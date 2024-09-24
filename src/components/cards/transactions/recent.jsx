@@ -3,8 +3,9 @@ import { Link, useParams } from 'react-router-dom'
 import Card from '..'
 import { transactionIcons } from 'components/icons/data';
 import { FaArrowUpLong, FaArrowDownLong } from "react-icons/fa6";
+import PrimaryLink from 'components/links/primary';
 
-function TransactionSingle({ amount, type, category, balance, createdAt }) {
+function TransactionSingle({ amount, type, category, balance }) {
     const Icon = transactionIcons[category];
     const isIncome = type === 'Income';
     const ArrowIcon = isIncome ? FaArrowUpLong : FaArrowDownLong;
@@ -27,12 +28,20 @@ function RecentTransaction({ transactions = [] }) {
         <Card shadow={false} customCss="bg-gray-100">
             <h6 className='font-bold text-center mb-2'>Recent Transactions</h6>
             <hr className='py-2' />
-            {transactions.length === 0 && <p className='text-sm flex-center gap-1 lg:h-[200px]'>No Activity Found. <Link to={`/transactions/create?account=${url}`} className='font-medium text-blue-500 hover:text-blue-700'>Create a Transaction</Link></p>}
-            <div className='divide-y'>
-                {transactions.map(transaction => [
-                    <TransactionSingle key={transaction?._id} {...transaction} />
-                ])}
-            </div>
+            {transactions.length === 0 ?
+                <p className='text-sm flex-center gap-1 h-[200px]'>No Activity Found. <Link to={`/transactions/create?account=${url}`} className='font-medium text-blue-500 hover:text-blue-700'>Create a Transaction</Link></p>
+                :
+                <>
+                    <div className='divide-y'>
+                        {transactions.map(transaction => [
+                            <TransactionSingle key={transaction?._id} {...transaction} />
+                        ])}
+                    </div>
+                    <div className='flex-center'>
+                        <PrimaryLink to={`/transactions/${url}`} customCss="font-medium text-md uppercase mt-2 underline">View All</PrimaryLink>
+                    </div>
+                </>
+            }
         </Card>
     )
 }

@@ -16,8 +16,8 @@ export const createTransaction = async ({ type, amount, account:accountId, userI
 export const getTransactionsByAccount = async (accountId, filters) => {
     try {
         if (!accountId) return [];
-        const { row } = filters;
-        const { data } = await axios.get(`/v1/transactions/account/${accountId}?row=${row}`)
+        const { row = 5, length = 5 } = filters;
+        const { data } = await axios.get(`/v1/transactions/account/${accountId}?row=${row}&length=${length}`)
         return data;
     } catch (err) {
         console.log("Error: ", err?.message);
@@ -25,20 +25,22 @@ export const getTransactionsByAccount = async (accountId, filters) => {
     }
 }
 
+// GET: Get a user transactions data by its account id
+export const getTransactionsDonutChart = async (accountId, filters) => {
+    try {
+        if (!accountId) return [];
+        const { type } = filters;
+        const { data } = await axios.get(`/v1/transactions/categories/${accountId}/donut?type=${type}`)
+        return data?.length ? data : [];
+    } catch (err) {
+        console.log("Error: ", err?.message);
+        return { message: "Network Error", type: "error" };
+    }
+}
 
 // ============================================
 
-// GET: Get a user account data by its name
-export const getAccountData = async (accountId) => {
-    try {
-        if (!accountId) return {};
-        const { data } = await axios.get(`/v1/accounts/${accountId}`)
-        return data;
-    } catch (err) {
-        console.log("Error: ", err?.message);
-        return { message: "Network Error", type: "error" };
-    }
-}
+
 
 // GET: Get all accounts data of a user
 export const getAllAccounts = async (userId) => {

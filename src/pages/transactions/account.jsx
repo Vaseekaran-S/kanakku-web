@@ -18,7 +18,7 @@ function AccountTransaction() {
 
     useEffect(() => {
         if (!Object.keys(account).length) return navigate("/accounts");
-    }, [url])
+    }, [url, account, navigate])
 
     const { name, icon } = account;
 
@@ -41,7 +41,7 @@ function AccountTransaction() {
                 <div className="col-span-12 lg:col-span-9">
                     <Card shadow={false}>
                         <h2 className='font-bold text-xl mb-5'>Transactions History</h2>
-                        {account?._id && <TransactionsTable accountId={account?._id} />}
+                        <TransactionsTable accountId={account?._id} />
                     </Card>
                 </div>
             </div>
