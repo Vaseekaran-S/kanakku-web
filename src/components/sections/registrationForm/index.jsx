@@ -16,20 +16,25 @@ function RegistrationForm({ renderingData }) {
     const isLogin = buttonText === "Login";
 
     const initialValues = Object.fromEntries(inputs.map(input => [input?.name, ""]));
-    const validationEntries = isLogin ? {} : {
-        name: YUP.string().required("Name is required!").min(4, "Name must be 4 characters long"),
-        mobile: YUP.string().required("Mobile Number is required!").matches(/^\d{10}$/, 'Number must be 10 digits'),
-        type: YUP.string().required("Type is required!")
-    }
-    const validationSchema = YUP.object({
-        ...validationEntries,
-        email: YUP.string().required("Email is required!").email('Invalid Email format'),
+
+    const validationEntries = isLogin ? {
         password: YUP.string().required("Password is required!")
             .min(6, 'Password must be 6 characters long')
-            .matches(/[0-9]/, 'Password requires a number!')
+    } : {
+        name: YUP.string().required("Name is required!").min(4, "Name must be 4 characters long"),
+        mobile: YUP.string().required("Mobile Number is required!").matches(/^\d{10}$/, 'Number must be 10 digits'),
+        type: YUP.string().required("Type is required!"),
+        password: YUP.string().required("Password is required!")
             .matches(/[A-Z]/, 'Password requires an uppercase letter!')
             .matches(/[a-z]/, 'Password requires a lowercase letter!')
+            .matches(/[0-9]/, 'Password requires a number!')
             .matches(/[^\w]/, 'Password requires a symbol!')
+            .min(6, 'Password must be 6 characters long')
+    }
+
+    const validationSchema = YUP.object({
+        email: YUP.string().required("Email is required!").email('Invalid Email format'),
+        ...validationEntries
     });
 
     return (
