@@ -15,8 +15,7 @@ import { selectAccountByUrl } from 'redux-store/accounts/accountSlice';
 
 function ViewAccount() {
     const navigate = useNavigate();
-    const { _id } = useSelector((store) => store.user.userData);
-    const { user = _id, url } = useParams();
+    const { url } = useParams();
 
     const account = useSelector(state => selectAccountByUrl(state.accounts, url));
 
@@ -28,11 +27,12 @@ function ViewAccount() {
     const [expenseDonut, setExpenseDonut] = useState([]);
 
     const fetchData = useCallback(async () => {
+        if (!account?._id) return navigate("/accounts");
         try {
             const [recentTransactions, incomeDonut, expenseDonut] = await Promise.all([
-                getTransactionsByAccount(account?._id, { length: 5 }),
-                getTransactionsDonutChart(account?._id, { type: "Income" }),
-                getTransactionsDonutChart(account?._id, { type: "Expense" }),
+                getTransactionsByAccount(account._id, { length: 5 }),
+                getTransactionsDonutChart(account._id, { type: "Income" }),
+                getTransactionsDonutChart(account._id, { type: "Expense" }),
             ]);
 
             setRecentTransactions(recentTransactions);
@@ -43,7 +43,7 @@ function ViewAccount() {
         } finally {
             setIsLoading(false);
         }
-    }, [user, url]);
+    }, [account, navigate]);
 
     useEffect(() => {
         fetchData();
@@ -66,14 +66,10 @@ function ViewAccount() {
                     <Card shadow={false} customCss="lg:p-10">
                         <div className="grid grid-cols-12">
                             <div className="col-span-12 lg:col-span-4">
-                            {type === "Income" ? 
-                                <DonutChart key={1} data={incomeDonut} customCss="min-h-[300px]" />
-                            : 
-                                <DonutChart key={2} data={expenseDonut} customCss="min-h-[300px]" />
-                            }
+                                <DonutChart key={type} data={type === "Income" ? incomeDonut : expenseDonut} customCss="min-h-[300px]" />
                             </div>
                             <div className="col-span-12 lg:col-span-8">
-                                {/* Placeholder for other charts */}
+                                Bar Charts
                             </div>
                         </div>
                     </Card>
