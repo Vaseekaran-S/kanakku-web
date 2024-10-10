@@ -78,7 +78,7 @@ function ViewAccount() {
                     <h2 className="font-medium text-lg px-4 py-3 rounded mb-4 bg-gray-100">
                         Current Balance: <span className="font-bold">₹{balance}</span>
                     </h2>
-                    <RecentTransaction transactions={recentTransactions} />
+                    <RecentTransaction transactions={recentTransactions} isLoading={isLoading} />
                 </div>
             </div>
         </PageSection>
