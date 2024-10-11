@@ -38,9 +38,21 @@ export const getTransactionsDonutChart = async (accountId, filters) => {
     }
 }
 
+
+// GET: Get line chart transactions data of an account
+export const getTransactionsLineChart = async (accountId) => {
+    try {
+        if (!accountId) return {};
+        const { data } = await axios.get(`/v1/transactions/charts/${accountId}/line`)
+        return data || {};
+    } catch (err) {
+        console.log("Error: ", err?.message);
+        return { message: "Network Error", type: "error" };
+    }
+}
+
+
 // ============================================
-
-
 
 // GET: Get all accounts data of a user
 export const getAllAccounts = async (userId) => {

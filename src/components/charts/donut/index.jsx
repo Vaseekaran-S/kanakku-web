@@ -8,15 +8,15 @@ const uniqueColors = ['Green', 'Blue', 'Red', '#FFCE06', '#4BC0C0', '#FF9F40', '
 
 const DonutChartSkel = () => {
   return (
-    <div role="status" class="animate-pulse">
-      <div class="w-60 h-60 bg-gray-200 rounded-full dark:bg-gray-700 flex-center m-auto mb-4">
-        <div class="w-32 h-32 bg-white rounded-full"></div>
+    <div role="status" className="animate-pulse">
+      <div className="w-60 h-60 bg-gray-200 rounded-full dark:bg-gray-700 flex-center m-auto mb-4">
+        <div className="w-32 h-32 bg-white rounded-full"></div>
       </div>
       <div className='flex gap-3 max-w-[90%] m-auto'>
-        <span class="w-24 h-2 bg-gray-200 rounded dark:bg-gray-700 flex-center m-auto"></span>
-        <span class="w-24 h-2 bg-gray-200 rounded dark:bg-gray-700 flex-center m-auto"></span>
-        <span class="w-24 h-2 bg-gray-200 rounded dark:bg-gray-700 flex-center m-auto"></span>
-        <span class="w-24 h-2 bg-gray-200 rounded dark:bg-gray-700 flex-center m-auto"></span>
+        <span className="w-24 h-2 bg-gray-200 rounded dark:bg-gray-700 flex-center m-auto"></span>
+        <span className="w-24 h-2 bg-gray-200 rounded dark:bg-gray-700 flex-center m-auto"></span>
+        <span className="w-24 h-2 bg-gray-200 rounded dark:bg-gray-700 flex-center m-auto"></span>
+        <span className="w-24 h-2 bg-gray-200 rounded dark:bg-gray-700 flex-center m-auto"></span>
       </div>
     </div>
   )
