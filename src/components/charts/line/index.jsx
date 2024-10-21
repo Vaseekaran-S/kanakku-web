@@ -29,7 +29,7 @@ const LineChart = ({ data = [] }) => {
             tooltip: {
                 callbacks: {
                     label: function (tooltipItem) {
-                        return `Value: ${tooltipItem.raw}`;
+                        return `Amount: ${tooltipItem.raw}`;
                     },
                 },
             },
@@ -37,18 +37,32 @@ const LineChart = ({ data = [] }) => {
         scales: {
             x: {
                 grid: {
-                    display: false,
+                    display: true,
+                },
+                ticks: {
+                  display: false,
                 },
                 border: {
                     display: true
+                },
+                title: {
+                    display: true,
+                    text: 'Transactions Date'
                 }
             },
             y: {
                 grid: {
                     display: true,
                 },
+                ticks: {
+                  display: false,
+                },
                 border: {
                     display: true
+                },
+                title: {
+                    display: true,
+                    text: 'Amount'
                 }
             }
         }
