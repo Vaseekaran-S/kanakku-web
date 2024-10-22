@@ -6,4 +6,4 @@ Kanakku is an income/expense based account webapp. It helps maintain personal an
 - Create Transactions with Bills
 - Visual Transactions Details
 - Event-Based Expense Tracking [SOON]
-- Group Expense Splitting [SOON}
+- Group Expense Splitting [SOON]
