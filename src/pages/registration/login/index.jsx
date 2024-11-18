@@ -37,7 +37,7 @@ function Login() {
     }
 
     return (
-        <PageSection customCss="w-full flex-center">
+        <PageSection customCss="w-full flex-center min-h-[100vh]">
             <RegistrationForm type="login" renderingData={renderingData}/>
         </PageSection>
     )
