@@ -1,41 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Card from 'components/cards';
+
 import Avatar from "react-avatar";
 import { MdEventNote, MdAccountBalanceWallet, MdAccountBalance, MdOutlineLogout } from "react-icons/md";
 import { FaPhoneAlt, FaUserEdit } from "react-icons/fa";
 import { HiUserGroup } from 'react-icons/hi2';
 
+import Card from 'components/cards';
 import ProfileTable from 'components/sections/profile';
 import PrimaryBtn from 'components/buttons/primary';
-import { useNavigate } from 'react-router-dom';
-
-const profileTableData = {
-  accounts: {
-    title: "Accounts",
-    link: "accounts",
-    icon: <MdAccountBalance fontSize={35} />
-  },
-  events: {
-    title: "Events",
-    link: "events",
-    icon: <MdEventNote fontSize={35} />
-  },
-  groups: {
-    title: "Groups",
-    link: "groups",
-    icon: <HiUserGroup fontSize={35} />
-  },
-}
 
 function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { name, email, mobile } = useSelector(state => state.user.userData);
+  const accountsCount = useSelector(state => state.accounts.data).length || 0;
 
   const profileDetails = [
     { icon: <FaPhoneAlt />, text: mobile },
-    { icon: <MdAccountBalanceWallet />, text: `Accounts - ${0}` },
+    { icon: <MdAccountBalanceWallet />, text: `Accounts - ${accountsCount}` },
     { icon: <MdEventNote />, text: `Events - ${0}` },
     { icon: <HiUserGroup />, text: `Groups - ${0}` },
   ];
@@ -77,9 +61,9 @@ function Profile() {
         </div>
         <div className="col-span-12 lg:col-span-9">
           <Card customCss="hover:shadow-md px-8 py-2 divide-y">
-            <ProfileTable data={profileTableData.accounts} />
-            <ProfileTable data={profileTableData.events} />
-            <ProfileTable data={profileTableData.groups} />
+            <ProfileTable title="Accounts" isLive={true} count={accountsCount} link="accounts" icon={<MdAccountBalance fontSize={35} />} />
+            <ProfileTable title="Events" isLive={false} count={0} link="events" icon={<MdEventNote fontSize={35} />} />
+            <ProfileTable title="Groups" isLive={false} count={0} link="groups" icon={<HiUserGroup fontSize={35} />} />
           </Card>
         </div>
       </div>

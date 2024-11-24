@@ -1,5 +1,13 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getUser } from "api/user";
 
-import { createSlice } from "@reduxjs/toolkit";
+const fetchUserData = createAsyncThunk(
+    'user/userData',
+    async (email) => {
+        const response = await getUser(email)
+        return response
+    }
+)
 
 const userSlice = createSlice({
     name: "User",
@@ -20,8 +28,14 @@ const userSlice = createSlice({
             state.user = action.payload.email || state.user;
             state.userData = { ...state.userData, ...action.payload };
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchUserData.fulfilled, (state, action) => {
+            state.userData = action.payload
+        })
     }
 })
 
 export const { setAuthentication, setUserData, setUserMail } = userSlice.actions
+export { fetchUserData }
 export default userSlice.reducer
