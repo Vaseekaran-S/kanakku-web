@@ -24,6 +24,7 @@ const EmailVerification = lazy(() => import("pages/registration/verify-email"));
 
 const Welcome = lazy(() => import("pages/registration/welcome"));
 const Profile = lazy(() => import("pages/profile"));
+const EditProfile = lazy(() => import("pages/profile/edit"));
 
 // const Events = lazy(() => import("pages/events"));
 // const Groups = lazy(() => import("pages/groups"));
@@ -70,16 +71,22 @@ function App() {
       <>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/edit" element={<EditProfile />} />
+
         <Route path="/accounts" element={<Accounts />} />
         <Route path="/accounts/create" element={<CreateAccount />} />
         <Route path="/accounts/:url" element={<ViewAccount />} />
         <Route path="/accounts/:url/settings" element={<AccountSettings />} />
         <Route path="/accounts/:url/edit" element={<EditAccount />} />
+
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/transactions/create" element={<CreateTransaction />} />
         <Route path="/transactions/:url" element={<AccountTransaction />} />
+
         <Route path="/events" element={<ComingSoon />} />
+        <Route path="/events/create" element={<ComingSoon />} />
         <Route path="/groups" element={<ComingSoon />} />
+        <Route path="/groups/create" element={<ComingSoon />} />
       </>
     ),
     []
