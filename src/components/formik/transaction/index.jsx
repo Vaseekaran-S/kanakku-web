@@ -2,10 +2,8 @@ import * as Yup from 'yup';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
-import { getAllAccounts } from 'api/accounts';
 import { useSelector } from 'react-redux';
 
-import { FaCirclePlus } from "react-icons/fa6";
 import { accountIcons, expenseIcons, incomeIcons } from 'components/icons/data';
 import PrimaryBtn from 'components/buttons/primary';
 import Card from 'components/cards';
@@ -13,24 +11,17 @@ import useKanakkuApi from 'hooks/api';
 import { createTransaction } from 'api/transactions';
 import { useNavigate } from 'react-router-dom';
 
-function TransactionForm({ transactionData, formType }) {
+function TransactionForm() {
     const apiCall = useKanakkuApi();
     const navigate = useNavigate();
 
     const { _id: userId } = useSelector((store) => store.user.userData);
     const [isLoading, setIsLoading] = useState(true);
-    const [accounts, setAccounts] = useState([]);
-    useEffect(() => {
-        const fetchAccounts = async () => {
-            try {
-                const data = await getAllAccounts(userId);
-                setAccounts(data);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchAccounts();
-    }, [userId]);
+    const accounts = useSelector(state => state.accounts?.data);
+
+    setTimeout(() => {
+        setIsLoading(false)
+    }, 1000);
 
     const [transactionType, setTransactionType] = useState("Income");
     const categoryIcons = useMemo(() => transactionType === "Income" ? incomeIcons : expenseIcons, [transactionType]);
@@ -41,7 +32,6 @@ function TransactionForm({ transactionData, formType }) {
 
     // Images Upload
     const [images, setImages] = useState([]);
-
     const inputRef = useRef(null);
     const selectImage = () => (inputRef.current) && inputRef.current.click();
     const selectedImage = (event) => {
@@ -73,9 +63,9 @@ function TransactionForm({ transactionData, formType }) {
         category: Yup.string().required('Select a Category*')
     })
 
-    const formSubmit = async(values) => {
+    const formSubmit = async (values) => {
         const response = await apiCall(createTransaction, values);
-        if(response?.type === "success") navigate("/transactions")
+        if (response?.type === "success") navigate("/transactions")
     }
 
     return (
@@ -86,7 +76,7 @@ function TransactionForm({ transactionData, formType }) {
                         <div className='py-5'>
                             <div className='flex gap-1 mb-3'>
                                 {["Income", "Expense"].map(label => [
-                                    <button key={label} onClick={() => selectTransactionType(label, setFieldValue) } disabled={transactionType === label} className={`px-3 py-2 border font-bold rounded-lg w-full ${transactionType === label ? 'bg-green-600 hover:bg-green-800 text-white' : 'bg-gray-100 hover:bg-gray-300 text-black'}`} >{label}</button>
+                                    <button key={label} onClick={() => selectTransactionType(label, setFieldValue)} disabled={transactionType === label} className={`px-3 py-2 border font-bold rounded-lg w-full ${transactionType === label ? 'bg-green-600 hover:bg-green-800 text-white' : 'bg-gray-100 hover:bg-gray-300 text-black'}`} >{label}</button>
                                 ])}
                             </div>
                             <h2 className='font-bold text-xl mb-3'>Amount</h2>
@@ -165,7 +155,7 @@ function TransactionForm({ transactionData, formType }) {
                                 <textarea onChange={(e) => setFieldValue('notes', e.target.value)} name='notes' placeholder="Enter Notes" className="border w-full p-2 rounded focus:outline-none focus:border-2 border-black" />
                             </div>
                             <PrimaryBtn type="submit" customCss="mt-7 w-full">
-                                Add Expense
+                                Add { transactionType === "Income" ? "Income" : "Expense" }
                             </PrimaryBtn>
                         </div>
                     </Card>
