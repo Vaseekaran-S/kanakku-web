@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { accountIcons, expenseIcons, incomeIcons } from 'components/icons/data';
 import PrimaryBtn from 'components/buttons/primary';
@@ -10,10 +10,12 @@ import Card from 'components/cards';
 import useKanakkuApi from 'hooks/api';
 import { createTransaction } from 'api/transactions';
 import { useNavigate } from 'react-router-dom';
+import { refreshAccount } from 'redux-store/accounts/accountSlice';
 
 function TransactionForm() {
     const apiCall = useKanakkuApi();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const { _id: userId } = useSelector((store) => store.user.userData);
     const [isLoading, setIsLoading] = useState(true);
@@ -65,7 +67,10 @@ function TransactionForm() {
 
     const formSubmit = async (values) => {
         const response = await apiCall(createTransaction, values);
-        if (response?.type === "success") navigate("/transactions")
+        if (response?.type === "success") {
+            dispatch(refreshAccount(values?.account))
+            navigate("/transactions")
+        }
     }
 
     return (

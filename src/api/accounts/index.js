@@ -5,10 +5,10 @@ export const getAccountData = async (accountId) => {
     try {
         if (!accountId) return {};
         const { data } = await axios.get(`/v1/accounts/${accountId}`)
-        return data;
+        return data || {};
     } catch (err) {
         console.log("Error: ", err?.message);
-        return { message: "Network Error", type: "error" };
+        return {};
     }
 }
 
