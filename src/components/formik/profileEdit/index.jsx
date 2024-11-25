@@ -45,7 +45,7 @@ function ProfileEditForm() {
         const response = await apiCall(updateUserData, {_id: userId, data: values});
         if (response?.type === "success"){
             dispatch(fetchUserData(email))
-            navigate("/")
+            navigate("/profile")
         }
     }
 
@@ -72,7 +72,7 @@ function ProfileEditForm() {
                                 <textarea value={values.bio} onChange={(e) => setFieldValue('bio', e.target.value)} name='bio' placeholder="Enter Bio" className="border w-full p-2 rounded focus:outline-none focus:border-2 border-black" />
                             </div>
                             <div className='flex gap-2 mt-6 max-w-[400px]'>
-                                <PrimaryBtn type="button" customCss="w-full bg-gray-600 hover:bg-gray-700">
+                                <PrimaryBtn link="/profile" type="button" customCss="w-full !bg-gray-600 hover:!bg-gray-700">
                                     Cancel
                                 </PrimaryBtn>
                                 <PrimaryBtn type="submit" customCss="w-full !bg-blue-600 hover:!bg-blue-700">
