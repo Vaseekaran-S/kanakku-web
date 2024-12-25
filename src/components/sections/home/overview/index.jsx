@@ -1,4 +1,4 @@
-import HomeOverviewCard from 'components/cards/home-overview'
+import HomeOverviewCard from 'components/cards/home/overview'
 import React from 'react'
 
 function HomeOverview() {
@@ -24,8 +24,8 @@ function HomeOverview() {
     ]
  
     return (
-        <div className='mt-5'>
-            <h4 className='font-medium text-xl mb-4'>Overview</h4>
+        <div className='py-5'>
+            <h4 className='font-bold text-xl mb-4'>Overview</h4>
             <div className="grid grid-cols-3 lg:grid-cols-12 gap-4 px-5 md:px-0">
                 {overviews.map(overview => [
                     <div key={overview.title} className="col-span-3">
