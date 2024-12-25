@@ -51,6 +51,18 @@ export const getTransactionsLineChart = async (accountId) => {
     }
 }
 
+// GET: Get line chart recent transactions data of an account
+export const getRecentTransactionsLineChart = async (userId) => {
+    try {
+        if (!userId) return [];
+        const { data } = await axios.get(`/v1/accounts/${userId}/portfolio`)
+        return Array.isArray(data) ? data : [];
+    } catch (err) {
+        console.log("Error: ", err?.message);
+        return { message: "Network Error", type: "error" };
+    }
+}
+
 
 // ============================================
 

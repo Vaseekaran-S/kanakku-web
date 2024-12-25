@@ -18,7 +18,7 @@ function AccountCard({ url, name, balance, icon, createdAt }) {
         <Link to={url}>{name}</Link>
       </h2>
       <div className='flex items-center justify-between'>
-        <span className='bg-green-800 inline px-2 py-1 rounded font-medium text-white'>Rs {balance}</span>
+        <span className={`inline px-2 py-1 rounded font-medium text-white ${balance <= 0 ? 'bg-red-800' : 'bg-green-800'}`}>Rs {balance}</span>
         <div className='flex gap-2'>
           <IconLink title="Transactions" link={`/transactions/${url}`} Icon={BiTransferAlt} customCss="border" />
           <IconLink title="Settings" link={`/accounts/${url}/settings`} Icon={IoSettings} customCss="border" />
